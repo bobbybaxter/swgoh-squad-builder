@@ -1,0 +1,102 @@
+{
+  "squad1": {
+    "name": "squad 1",
+    "description": "My first squad",
+    "character1Id": "toon1",
+    "character2Id": "toon2",
+    "character3Id": "toon3",
+    "character4Id": "toon4",
+    "character5Id": "toon5",
+    "uid": "12345"
+  },
+  "squad2": {
+    "name": "squad 2",
+    "description": "My second squad",
+    "character1Id": "toon1",
+    "character2Id": "toon2",
+    "character3Id": "toon3",
+    "character4Id": "toon4",
+    "character5Id": "toon5",
+    "uid": "12345"
+  },
+  "squad3": {
+    "name": "squad 3",
+    "description": "My third squad",
+    "character1Id": "toon1",
+    "character2Id": "toon2",
+    "character3Id": "toon3",
+    "character4Id": "toon4",
+    "character5Id": "toon5",
+    "uid": "12345"
+  },
+  "squad4": {
+    "name": "squad 4",
+    "description": "My fourth squad",
+    "character1Id": "toon1",
+    "character2Id": "toon2",
+    "character3Id": "toon3",
+    "character4Id": "toon4",
+    "character5Id": "toon5",
+    "uid": "12345"
+  },
+  "squad5": {
+    "name": "squad 5",
+    "description": "My fifth squad",
+    "character1Id": "toon1",
+    "character2Id": "toon2",
+    "character3Id": "toon3",
+    "character4Id": "toon4",
+    "character5Id": "toon5",
+    "uid": "12345"
+  },
+  "squad6": {
+    "name": "squad 6",
+    "description": "My sixth squad",
+    "character1Id": "toon1",
+    "character2Id": "toon2",
+    "character3Id": "toon3",
+    "character4Id": "toon4",
+    "character5Id": "toon5",
+    "uid": "12345"
+  },
+  "squad7": {
+    "name": "squad 7",
+    "description": "My seventh squad",
+    "character1Id": "toon1",
+    "character2Id": "toon2",
+    "character3Id": "toon3",
+    "character4Id": "toon4",
+    "character5Id": "toon5",
+    "uid": "12345"
+  },
+  "squad8": {
+    "name": "squad 8",
+    "description": "My eighth squad",
+    "character1Id": "toon1",
+    "character2Id": "toon2",
+    "character3Id": "toon3",
+    "character4Id": "toon4",
+    "character5Id": "toon5",
+    "uid": "12345"
+  },
+  "squad9": {
+    "name": "squad 9",
+    "description": "My ninth squad",
+    "character1Id": "toon1",
+    "character2Id": "toon2",
+    "character3Id": "toon3",
+    "character4Id": "toon4",
+    "character5Id": "toon5",
+    "uid": "12345"
+  },
+  "squad10": {
+    "name": "squad 10",
+    "description": "My tenth squad",
+    "character1Id": "toon1",
+    "character2Id": "toon2",
+    "character3Id": "toon3",
+    "character4Id": "toon4",
+    "character5Id": "toon5",
+    "uid": "12345"
+  }
+}
