@@ -1,7 +1,16 @@
 import React from 'react';
-import MyNavbar from '../MyNavbar/MyNavbar';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+
+import Auth from '../components/Auth/Auth';
+import Home from '../components/Home/Home';
+import MyNavbar from '../components/MyNavbar/MyNavbar';
+
+import fbConnection from '../components/helpers/data/connection';
 
 import './App.scss';
+
+fbConnection();
 
 class App extends React.Component {
   render() {
