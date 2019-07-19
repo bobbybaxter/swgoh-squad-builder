@@ -1,4 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 import {
   Collapse,
   Navbar,
@@ -7,15 +10,15 @@ import {
   Nav,
   NavItem,
   NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
 } from 'reactstrap';
 
 import './MyNavbar.scss';
 
 class MyNavbar extends React.Component {
+  static propTypes = {
+    authed: PropTypes.bool.isRequired,
+  }
+
   state = {
     isOpen: false,
   };
@@ -24,6 +27,11 @@ class MyNavbar extends React.Component {
     this.setState(prevState => ({
       isOpen: !prevState.isOpen,
     }));
+  }
+
+  logMeOut = (e) => {
+    e.preventDefault();
+    firebase.auth().signOut();
   }
 
   render() {
@@ -35,28 +43,11 @@ class MyNavbar extends React.Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink href="/components/">Components</NavLink>
+                <NavLink href="/squadManager">Squad Manager</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
+                <NavLink href="#" onClick={this.logMeOut}>Logout</NavLink>
               </NavItem>
-              <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav caret>
-                  Options
-                </DropdownToggle>
-                <DropdownMenu right>
-                  <DropdownItem>
-                    Option 1
-                  </DropdownItem>
-                  <DropdownItem>
-                    Option 2
-                  </DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem>
-                    Reset
-                  </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
             </Nav>
           </Collapse>
         </Navbar>
