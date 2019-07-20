@@ -25,4 +25,6 @@ const getSquadListById = squadListId => new Promise((resolve, reject) => {
     .catch(err => reject(err));
 });
 
-export default { getSquadLists, getSquadListById };
+const postSquadList = newSquadList => axios.post(`${baseUrl}/squadLists.json`, newSquadList);
+
+export default { getSquadLists, getSquadListById, postSquadList };
