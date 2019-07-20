@@ -11,9 +11,21 @@ class SquadRow extends React.Component {
   }
 
   render() {
+    const { squad } = this.props;
+    console.error('squad', squad);
     return (
       <div className="SquadRow">
-        This is a squad row
+        <div className="card col-12">
+          <div className="card-body d-flex flex-row justify-content-between">
+            <h5 className="card-title">{squad.name}</h5>
+            <p className="card-text">{squad.character1Id}</p>
+            <p className="card-text">{squad.character2Id}</p>
+            <p className="card-text">{squad.character3Id}</p>
+            <p className="card-text">{squad.character4Id}</p>
+            <p className="card-text">{squad.character5Id}</p>
+            <p className="card-text">{squad.description}</p>
+          </div>
+        </div>
       </div>
     );
   }

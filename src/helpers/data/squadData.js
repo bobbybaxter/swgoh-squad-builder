@@ -3,17 +3,18 @@ import fbKeys from '../apiKeys.json';
 
 const baseUrl = fbKeys.firebaseKeys.databaseURL;
 
-const getSquads = () => new Promise((resolve, reject) => {
-  axios.get(`${baseUrl}/squads.json"`)
+const getSquadsBySquadList = squadListId => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/squads.json`)
     .then((res) => {
       const squads = [];
       Object.keys(res.data).forEach((fbKey) => {
         res.data[fbKey].id = fbKey;
         squads.push(res.data[fbKey]);
       });
-      resolve(squads);
+      const targetedSquads = squads.filter(x => x.squadListId === squadListId);
+      resolve(targetedSquads);
     })
     .catch(err => reject(err));
 });
 
-export default { getSquads };
+export default { getSquadsBySquadList };

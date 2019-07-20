@@ -33,9 +33,11 @@ class SquadManager extends React.Component {
     ));
 
     return (
-      <div className="SquadManager">
+      <div className="SquadManager col-12 justify-content-center">
         <h1>Squad Manager</h1>
-        { makeSquadListCards }
+        <div className="d-flex flex-row flex-wrap justify-content-center">
+          { makeSquadListCards }
+        </div>
       </div>
     );
   }
