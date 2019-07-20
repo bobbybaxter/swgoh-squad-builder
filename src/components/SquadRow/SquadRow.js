@@ -12,7 +12,6 @@ class SquadRow extends React.Component {
 
   render() {
     const { squad } = this.props;
-    console.error('squad', squad);
     return (
       <div className="SquadRow">
         <div className="card col-12">

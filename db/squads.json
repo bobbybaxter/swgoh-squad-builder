@@ -7,7 +7,8 @@
     "character3Id": "toon3",
     "character4Id": "toon4",
     "character5Id": "toon5",
-    "squadListId": "squadList1"
+    "squadListId": "squadList1",
+    "uid": "U0XhVylq6zV7x9YaoKRkdP1FIns1"
   },
   "squad2": {
     "name": "squad 2",
@@ -17,7 +18,8 @@
     "character3Id": "toon3",
     "character4Id": "toon4",
     "character5Id": "toon5",
-    "squadListId": "squadList3"
+    "squadListId": "squadList3",
+    "uid": "U0XhVylq6zV7x9YaoKRkdP1FIns1"
   },
   "squad3": {
     "name": "squad 3",
@@ -27,7 +29,8 @@
     "character3Id": "toon3",
     "character4Id": "toon4",
     "character5Id": "toon5",
-    "squadListId": "squadList1"
+    "squadListId": "squadList1",
+    "uid": "U0XhVylq6zV7x9YaoKRkdP1FIns1"
   },
   "squad4": {
     "name": "squad 4",
@@ -37,7 +40,8 @@
     "character3Id": "toon3",
     "character4Id": "toon4",
     "character5Id": "toon5",
-    "squadListId": "12345"
+    "squadListId": "12345",
+    "uid": "23456"
   },
   "squad5": {
     "name": "squad 5",
@@ -47,7 +51,8 @@
     "character3Id": "toon3",
     "character4Id": "toon4",
     "character5Id": "toon5",
-    "squadListId": "squadList1"
+    "squadListId": "squadList1",
+    "uid": "U0XhVylq6zV7x9YaoKRkdP1FIns1"
   },
   "squad6": {
     "name": "squad 6",
@@ -57,7 +62,8 @@
     "character3Id": "toon3",
     "character4Id": "toon4",
     "character5Id": "toon5",
-    "squadListId": "12345"
+    "squadListId": "12345",
+    "uid": "U0XhVylq6zV7x9YaoKRkdP1FIns1"
   },
   "squad7": {
     "name": "squad 7",
@@ -67,7 +73,8 @@
     "character3Id": "toon3",
     "character4Id": "toon4",
     "character5Id": "toon5",
-    "squadListId": "squadList1"
+    "squadListId": "squadList1",
+    "uid": "U0XhVylq6zV7x9YaoKRkdP1FIns1"
   },
   "squad8": {
     "name": "squad 8",
@@ -77,7 +84,8 @@
     "character3Id": "toon3",
     "character4Id": "toon4",
     "character5Id": "toon5",
-    "squadListId": "12345"
+    "squadListId": "12345",
+    "uid": "23456"
   },
   "squad9": {
     "name": "squad 9",
@@ -87,7 +95,8 @@
     "character3Id": "toon3",
     "character4Id": "toon4",
     "character5Id": "toon5",
-    "squadListId": "12345"
+    "squadListId": "12345",
+    "uid": "23456"
   },
   "squad10": {
     "name": "squad 10",
@@ -97,6 +106,7 @@
     "character3Id": "toon3",
     "character4Id": "toon4",
     "character5Id": "toon5",
-    "squadListId": "12345"
+    "squadListId": "12345",
+    "uid": "23456"
   }
 }

@@ -54,10 +54,6 @@ class SquadManager extends React.Component {
     this.setState({ newSquadList: tempSquadList });
   }
 
-  squadNameChange = e => this.formFieldStringState('name', e);
-
-  squadDescriptionChange = e => this.formFieldStringState('description', e);
-
   getSquadLists = () => {
     const { uid } = firebase.auth().currentUser;
     squadListData.getSquadLists(uid)
@@ -68,6 +64,10 @@ class SquadManager extends React.Component {
   openSquadListModal = () => {
     this.toggle();
   }
+
+  squadDescriptionChange = e => this.formFieldStringState('description', e);
+
+  squadNameChange = e => this.formFieldStringState('name', e);
 
   toggle = () => {
     this.setState({ newSquadList: defaultSquadList });
@@ -89,12 +89,12 @@ class SquadManager extends React.Component {
       <div className="SquadManager col-12 justify-content-center">
         <h1>Squad Manager</h1>
         <SquadManagerModal
-          modal={this.state.modal}
-          toggle={this.toggle}
-          squadNameChange={this.squadNameChange}
-          squadDescriptionChange={this.squadDescriptionChange}
           addNewSquadList={this.addNewSquadList}
           isNameDuplicate={this.state.isNameDuplicate}
+          modal={this.state.modal}
+          squadDescriptionChange={this.squadDescriptionChange}
+          squadNameChange={this.squadNameChange}
+          toggle={this.toggle}
         />
         <div className="d-flex flex-row flex-wrap justify-content-center">
           <div className="SquadListCard col-4">
