@@ -58,6 +58,16 @@ class SquadList extends React.Component {
     this.getSquadsbySquadList(squadListId);
   }
 
+  deleteSquad = (squadId) => {
+    const squadListId = this.props.match.params.id;
+    squadData.deleteSquad(squadId)
+      .then(() => {
+        this.getSquadList(squadListId);
+        this.getSquadsbySquadList(squadListId);
+      })
+      .catch(err => console.error(err));
+  }
+
   formFieldStringState = (name, e) => {
     const tempSquad = { ...this.state.newSquad };
     tempSquad[name] = e.target.value;
@@ -107,6 +117,7 @@ class SquadList extends React.Component {
       <SquadRow
         key={squad.id}
         squad={squad}
+        deleteSquad={this.deleteSquad}
       />
     ));
 
@@ -130,7 +141,7 @@ class SquadList extends React.Component {
           <div className="SquadRow">
             <div className="card col-12">
               <div className="card-body d-flex flex-row justify-content-center">
-                <button className="btn btn-outline-success" onClick={this.openSquadRowModal}>New Squad</button>
+                <button className="btn btn-outline-primary" onClick={this.openSquadRowModal}>New Squad</button>
               </div>
             </div>
           </div>

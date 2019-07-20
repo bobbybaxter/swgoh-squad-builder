@@ -3,6 +3,8 @@ import fbKeys from '../apiKeys.json';
 
 const baseUrl = fbKeys.firebaseKeys.databaseURL;
 
+const deleteSquadList = squadListId => axios.delete(`${baseUrl}/squadLists/${squadListId}.json`);
+
 const getSquadLists = uid => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/squadLists.json?orderBy="uid"&equalTo="${uid}"`)
     .then((res) => {
@@ -27,4 +29,6 @@ const getSquadListById = squadListId => new Promise((resolve, reject) => {
 
 const postSquadList = newSquadList => axios.post(`${baseUrl}/squadLists.json`, newSquadList);
 
-export default { getSquadLists, getSquadListById, postSquadList };
+export default {
+  deleteSquadList, getSquadLists, getSquadListById, postSquadList,
+};
