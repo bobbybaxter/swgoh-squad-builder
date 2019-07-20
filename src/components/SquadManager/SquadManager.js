@@ -48,6 +48,12 @@ class SquadManager extends React.Component {
     this.getSquadLists();
   }
 
+  deleteSquadList = (squadListId) => {
+    squadListData.deleteSquadList(squadListId)
+      .then(() => this.getSquadLists())
+      .catch(err => console.error(err));
+  }
+
   formFieldStringState = (name, e) => {
     const tempSquadList = { ...this.state.newSquadList };
     tempSquadList[name] = e.target.value;
@@ -82,6 +88,7 @@ class SquadManager extends React.Component {
       <SquadListCard
         key={squadList.id}
         squadList={squadList}
+        deleteSquadList={this.deleteSquadList}
       />
     ));
 
