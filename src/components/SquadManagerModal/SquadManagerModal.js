@@ -9,9 +9,21 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
+  UncontrolledAlert,
 } from 'reactstrap';
 
 class SquadManagerModal extends React.Component {
+  duplicateNameAlert = () => {
+    if (!this.props.isNameDuplicate) {
+      return '';
+    }
+    return (
+        <UncontrolledAlert color="danger">
+          Duplicate Name - Please choose a different name.
+        </UncontrolledAlert>
+    );
+  }
+
   render() {
     const {
       modal,
@@ -51,6 +63,7 @@ class SquadManagerModal extends React.Component {
             <Button color="primary" onClick={addNewSquadList}>Submit</Button>{' '}
             <Button color="secondary" onClick={toggle}>Cancel</Button>
           </ModalFooter>
+        {this.duplicateNameAlert()}
         </Modal>
       </div>
     );

@@ -20,19 +20,28 @@ class SquadManager extends React.Component {
     squadLists: [],
     newSquadList: defaultSquadList,
     modal: false,
+    isNameDuplicate: false,
   }
 
   addNewSquadList = () => {
-    const tempSquadList = this.state.newSquadList;
-    tempSquadList.uid = firebase.auth().currentUser.uid;
-    tempSquadList.name = this.state.newSquadList.name;
-    tempSquadList.description = this.state.newSquadList.description;
-    squadListData.postSquadList(tempSquadList)
-      .then(() => {
-        this.getSquadLists();
-      })
-      .catch(err => console.error('didnt post squadlist', err));
-    this.toggle();
+    const { newSquadList } = this.state;
+    const currentSquadNames = [];
+    this.state.squadLists.map(squad => currentSquadNames.push(squad.name));
+    if (!currentSquadNames.includes(newSquadList.name)) {
+      this.setState({ isNameDuplicate: false });
+      const tempSquadList = newSquadList;
+      tempSquadList.uid = firebase.auth().currentUser.uid;
+      tempSquadList.name = newSquadList.name;
+      tempSquadList.description = newSquadList.description;
+      squadListData.postSquadList(tempSquadList)
+        .then(() => {
+          this.getSquadLists();
+          this.toggle();
+        })
+        .catch(err => console.error('didnt post squadlist', err));
+    } else {
+      this.setState({ isNameDuplicate: true });
+    }
   }
 
   componentDidMount() {
@@ -62,6 +71,7 @@ class SquadManager extends React.Component {
 
   toggle = () => {
     this.setState({ newSquadList: defaultSquadList });
+    this.setState({ isNameDuplicate: false });
     this.setState(prevState => ({
       modal: !prevState.modal,
     }));
@@ -84,6 +94,7 @@ class SquadManager extends React.Component {
           squadNameChange={this.squadNameChange}
           squadDescriptionChange={this.squadDescriptionChange}
           addNewSquadList={this.addNewSquadList}
+          isNameDuplicate={this.state.isNameDuplicate}
         />
         <div className="d-flex flex-row flex-wrap justify-content-center">
           <div className="SquadListCard col-4">
