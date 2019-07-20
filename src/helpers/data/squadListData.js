@@ -1,6 +1,7 @@
 import axios from 'axios';
+import fbKeys from '../apiKeys.json';
 
-const baseUrl = '';
+const baseUrl = fbKeys.firebaseKeys.databaseURL;
 
 const getSquadLists = uid => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/squadLists.json?orderBy="uid"&equalTo="${uid}"`)
@@ -15,4 +16,13 @@ const getSquadLists = uid => new Promise((resolve, reject) => {
     .catch(err => reject(err));
 });
 
-export default { getSquadLists };
+const getSquadListById = squadListId => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/squadLists/${squadListId}.json`)
+    .then((res) => {
+      const squadList = res.data;
+      resolve(squadList);
+    })
+    .catch(err => reject(err));
+});
+
+export default { getSquadLists, getSquadListById };

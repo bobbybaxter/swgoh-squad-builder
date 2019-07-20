@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import firebase from 'firebase/app';
 import 'firebase/auth';
+
+import { NavLink as RRNavLink } from 'react-router-dom';
 import {
   Collapse,
   Navbar,
@@ -35,20 +37,31 @@ class MyNavbar extends React.Component {
   }
 
   render() {
+    const { authed } = this.props;
+    const buildNavbar = () => {
+      if (authed) {
+        return (
+          <Nav className="ml-auto" navbar>
+          <NavItem>
+            <NavLink tag={RRNavLink} to="/squad-manager">Squad Manager</NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink href="#" onClick={this.logMeOut}>Logout</NavLink>
+          </NavItem>
+        </Nav>
+        );
+      }
+      return (
+        <Nav className="ml-auto" navbar></Nav>
+      );
+    };
     return (
       <div>
         <Navbar color="dark" dark expand="md">
           <NavbarBrand href="/">SWGOH Squad Builder</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
-            <Nav className="ml-auto" navbar>
-              <NavItem>
-                <NavLink href="/squadManager">Squad Manager</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="#" onClick={this.logMeOut}>Logout</NavLink>
-              </NavItem>
-            </Nav>
+            {buildNavbar(authed)}
           </Collapse>
         </Navbar>
       </div>

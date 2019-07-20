@@ -1,6 +1,7 @@
 import axios from 'axios';
+import fbKeys from '../apiKeys.json';
 
-const baseUrl = '';
+const baseUrl = fbKeys.firebaseKeys.databaseURL;
 
 const getSquads = () => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/squads.json"`)

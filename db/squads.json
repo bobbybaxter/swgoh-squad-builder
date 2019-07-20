@@ -7,7 +7,7 @@
     "character3Id": "toon3",
     "character4Id": "toon4",
     "character5Id": "toon5",
-    "uid": "12345"
+    "squadListId": "squadList1"
   },
   "squad2": {
     "name": "squad 2",
@@ -17,7 +17,7 @@
     "character3Id": "toon3",
     "character4Id": "toon4",
     "character5Id": "toon5",
-    "uid": "12345"
+    "squadListId": "squadList3"
   },
   "squad3": {
     "name": "squad 3",
@@ -27,7 +27,7 @@
     "character3Id": "toon3",
     "character4Id": "toon4",
     "character5Id": "toon5",
-    "uid": "12345"
+    "squadListId": "squadList1"
   },
   "squad4": {
     "name": "squad 4",
@@ -37,7 +37,7 @@
     "character3Id": "toon3",
     "character4Id": "toon4",
     "character5Id": "toon5",
-    "uid": "12345"
+    "squadListId": "12345"
   },
   "squad5": {
     "name": "squad 5",
@@ -47,7 +47,7 @@
     "character3Id": "toon3",
     "character4Id": "toon4",
     "character5Id": "toon5",
-    "uid": "12345"
+    "squadListId": "squadList1"
   },
   "squad6": {
     "name": "squad 6",
@@ -57,7 +57,7 @@
     "character3Id": "toon3",
     "character4Id": "toon4",
     "character5Id": "toon5",
-    "uid": "12345"
+    "squadListId": "12345"
   },
   "squad7": {
     "name": "squad 7",
@@ -67,7 +67,7 @@
     "character3Id": "toon3",
     "character4Id": "toon4",
     "character5Id": "toon5",
-    "uid": "12345"
+    "squadListId": "squadList1"
   },
   "squad8": {
     "name": "squad 8",
@@ -77,7 +77,7 @@
     "character3Id": "toon3",
     "character4Id": "toon4",
     "character5Id": "toon5",
-    "uid": "12345"
+    "squadListId": "12345"
   },
   "squad9": {
     "name": "squad 9",
@@ -87,7 +87,7 @@
     "character3Id": "toon3",
     "character4Id": "toon4",
     "character5Id": "toon5",
-    "uid": "12345"
+    "squadListId": "12345"
   },
   "squad10": {
     "name": "squad 10",
@@ -97,6 +97,6 @@
     "character3Id": "toon3",
     "character4Id": "toon4",
     "character5Id": "toon5",
-    "uid": "12345"
+    "squadListId": "12345"
   }
 }
