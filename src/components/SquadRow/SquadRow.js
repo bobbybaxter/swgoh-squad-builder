@@ -10,6 +10,12 @@ class SquadRow extends React.Component {
     squadList: squadShape.squadShape,
   }
 
+  deleteMe = (e) => {
+    e.preventDefault();
+    const { squad, deleteSquad } = this.props;
+    deleteSquad(squad.id);
+  }
+
   render() {
     const { squad } = this.props;
     return (
@@ -23,6 +29,7 @@ class SquadRow extends React.Component {
             <p className="card-text">{squad.character4Id}</p>
             <p className="card-text">{squad.character5Id}</p>
             <p className="card-text">{squad.description}</p>
+            <button className="btn btn-outline-danger" onClick={this.deleteMe}>x</button>
           </div>
         </div>
       </div>
