@@ -12,8 +12,8 @@ import squadData from '../../helpers/data/squadData';
 // import squadListShape from '../../helpers/propz/squadListShape';
 
 const defaultSquad = {
-  character1Id: 'a',
-  character2Id: 'a',
+  character1Id: '',
+  character2Id: '',
   character3Id: '',
   character4Id: '',
   character5Id: '',
@@ -24,8 +24,8 @@ const defaultSquad = {
 
 class SquadList extends React.Component {
   state = {
-    newSquad: defaultSquad,
     modal: false,
+    newSquad: defaultSquad,
     squadList: {},
     squads: [],
   }
@@ -46,7 +46,7 @@ class SquadList extends React.Component {
     squadData.postSquad(tempSquad)
       .then(() => {
         this.getSquadList(squadListId);
-        this.getSquadsbySquadList(squadListId);
+        this.getSquadsBySquadList(squadListId);
         this.toggle();
       })
       .catch(err => console.error('didnt post squadlist', err));
@@ -55,7 +55,7 @@ class SquadList extends React.Component {
   componentDidMount() {
     const squadListId = this.props.match.params.id;
     this.getSquadList(squadListId);
-    this.getSquadsbySquadList(squadListId);
+    this.getSquadsBySquadList(squadListId);
   }
 
   deleteSquad = (squadId) => {
@@ -63,7 +63,7 @@ class SquadList extends React.Component {
     squadData.deleteSquad(squadId)
       .then(() => {
         this.getSquadList(squadListId);
-        this.getSquadsbySquadList(squadListId);
+        this.getSquadsBySquadList(squadListId);
       })
       .catch(err => console.error(err));
   }
@@ -80,14 +80,20 @@ class SquadList extends React.Component {
       .catch(err => console.error('squadlist didnt load', err));
   }
 
-  getSquadsbySquadList = (squadListId) => {
+  getSquadsBySquadList = (squadListId) => {
     squadData.getSquadsBySquadList(squadListId)
       .then(res => this.setState({ squads: res }))
       .catch(err => console.error('squads didnt load', err));
   }
 
   openSquadRowModal = () => {
+    this.setState({ newSquad: defaultSquad });
     this.toggle();
+  }
+
+  openUpdateSquadRowModal = (squadId) => {
+    const action = 'update';
+    this.toggle(action, squadId);
   }
 
   squadCharacter1IdChange = e => this.formFieldStringState('character1Id', e);
@@ -104,11 +110,42 @@ class SquadList extends React.Component {
 
   squadNameChange = e => this.formFieldStringState('name', e);
 
-  toggle = () => {
-    this.setState({ newSquad: defaultSquad });
-    this.setState(prevState => ({
-      modal: !prevState.modal,
-    }));
+  toggle = (action, squadId) => {
+    if (action === 'update') {
+      const squadToUpdate = this.state.squads.find(squad => squad.id === squadId);
+      this.setState({ newSquad: squadToUpdate });
+      this.setState(prevState => ({
+        modal: !prevState.modal,
+      }));
+    } else {
+      this.setState(prevState => ({
+        modal: !prevState.modal,
+      }));
+    }
+  }
+
+  updateSquadRow = () => {
+    const squadListId = this.props.match.params.id;
+    const { newSquad } = this.state;
+    const tempSquad = { ...this.state.newSquad };
+    const squadId = tempSquad.id;
+    delete tempSquad.id;
+    tempSquad.uid = firebase.auth().currentUser.uid;
+    tempSquad.name = newSquad.name;
+    tempSquad.description = newSquad.description;
+    tempSquad.character1Id = newSquad.character1Id;
+    tempSquad.character2Id = newSquad.character2Id;
+    tempSquad.character3Id = newSquad.character3Id;
+    tempSquad.character4Id = newSquad.character4Id;
+    tempSquad.character5Id = newSquad.character5Id;
+    tempSquad.uid = newSquad.uid;
+    squadData.putSquad(tempSquad, squadId)
+      .then(() => {
+        this.toggle();
+        this.getSquadList(squadListId);
+        this.getSquadsBySquadList(squadListId);
+      })
+      .catch(err => console.error('didnt put squad', err));
   }
 
   render() {
@@ -118,6 +155,7 @@ class SquadList extends React.Component {
         key={squad.id}
         squad={squad}
         deleteSquad={this.deleteSquad}
+        openUpdateSquadRowModal={this.openUpdateSquadRowModal}
       />
     ));
 
@@ -126,6 +164,7 @@ class SquadList extends React.Component {
         <SquadListModal
           addNewSquadRow={this.addNewSquadRow}
           modal={this.state.modal}
+          newSquad={this.state.newSquad}
           squadCharacter1IdChange={this.squadCharacter1IdChange}
           squadCharacter2IdChange={this.squadCharacter2IdChange}
           squadCharacter3IdChange={this.squadCharacter3IdChange}
@@ -134,6 +173,7 @@ class SquadList extends React.Component {
           squadDescriptionChange={this.squadDescriptionChange}
           squadNameChange={this.squadNameChange}
           toggle={this.toggle}
+          updateSquadRow={this.updateSquadRow}
         />
         <h1>{squadList.name}</h1>
         <div className="d-flex flex-column">

@@ -18,8 +18,8 @@ class SquadRow extends React.Component {
 
   updateMe = (e) => {
     e.preventDefault();
-    const { squad, openUpdateSquadModal } = this.props;
-    openUpdateSquadModal(squad.id);
+    const { squad, openUpdateSquadRowModal } = this.props;
+    openUpdateSquadRowModal(squad.id);
   }
 
   render() {

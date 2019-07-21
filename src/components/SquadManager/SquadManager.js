@@ -10,17 +10,17 @@ import squadListData from '../../helpers/data/squadListData';
 import './SquadManager.scss';
 
 const defaultSquadList = {
-  name: '',
   description: '',
+  name: '',
   squads: {},
 };
 
 class SquadManager extends React.Component {
   state = {
-    squadLists: [],
-    newSquadList: defaultSquadList,
-    modal: false,
     isNameDuplicate: false,
+    modal: false,
+    newSquadList: defaultSquadList,
+    squadLists: [],
   }
 
   addNewSquadList = () => {
@@ -82,8 +82,8 @@ class SquadManager extends React.Component {
 
   toggle = (action, squadListId) => {
     if (action === 'update') {
-      const squadToUpdate = this.state.squadLists.find(squadList => squadList.id === squadListId);
-      this.setState({ newSquadList: squadToUpdate });
+      const squadListToUpdate = this.state.squadLists.find(x => x.id === squadListId);
+      this.setState({ newSquadList: squadListToUpdate });
       this.setState(prevState => ({
         modal: !prevState.modal,
       }));
