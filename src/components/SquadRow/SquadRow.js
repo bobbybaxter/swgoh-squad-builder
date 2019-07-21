@@ -16,6 +16,12 @@ class SquadRow extends React.Component {
     deleteSquad(squad.id);
   }
 
+  updateMe = (e) => {
+    e.preventDefault();
+    const { squad, openUpdateSquadModal } = this.props;
+    openUpdateSquadModal(squad.id);
+  }
+
   render() {
     const { squad } = this.props;
     return (
@@ -29,7 +35,8 @@ class SquadRow extends React.Component {
             <p className="card-text">{squad.character4Id}</p>
             <p className="card-text">{squad.character5Id}</p>
             <p className="card-text">{squad.description}</p>
-            <button className="btn btn-outline-danger" onClick={this.deleteMe}>x</button>
+            <button className="btn-sm btn-outline-primary" onClick={this.updateMe}>edit</button>
+            <button className="btn-sm btn-outline-danger" onClick={this.deleteMe}>x</button>
           </div>
         </div>
       </div>

@@ -29,6 +29,8 @@ const getSquadListById = squadListId => new Promise((resolve, reject) => {
 
 const postSquadList = newSquadList => axios.post(`${baseUrl}/squadLists.json`, newSquadList);
 
+const putSquadList = (updatedSquadList, squadListId) => axios.put(`${baseUrl}/squadLists/${squadListId}.json`, updatedSquadList);
+
 export default {
-  deleteSquadList, getSquadLists, getSquadListById, postSquadList,
+  deleteSquadList, getSquadLists, getSquadListById, postSquadList, putSquadList,
 };

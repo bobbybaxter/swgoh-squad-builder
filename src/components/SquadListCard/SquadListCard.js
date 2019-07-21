@@ -18,6 +18,12 @@ class SquadListCard extends React.Component {
     deleteSquadList(squadList.id);
   }
 
+  updateMe = (e) => {
+    e.preventDefault();
+    const { squadList, openUpdateSquadListModal } = this.props;
+    openUpdateSquadListModal(squadList.id);
+  }
+
   render() {
     const { squadList } = this.props;
     const toSquadList = `squad-list/${squadList.id}`;
@@ -28,9 +34,10 @@ class SquadListCard extends React.Component {
           <div className="card-body">
             <h5 className="card-title">{squadList.name}</h5>
             <p className="card-text">{squadList.description}</p>
+            <Link className="btn-sm btn-outline-primary" to={toSquadList}>View</Link>
             <div className="d-flex flex-row flex-wrap justify-content-center">
-              <Link className="btn btn-outline-success" to={toSquadList}>View</Link>
-              <button className="btn btn-outline-danger" onClick={this.deleteMe}>Delete</button>
+              <button className="btn-sm btn-outline-primary" onClick={this.updateMe}>Edit</button>
+              <button className="btn-sm btn-outline-danger" onClick={this.deleteMe}>Delete</button>
             </div>
           </div>
         </div>

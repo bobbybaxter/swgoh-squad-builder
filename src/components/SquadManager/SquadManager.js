@@ -28,15 +28,14 @@ class SquadManager extends React.Component {
     const currentSquadNames = [];
     this.state.squadLists.map(squad => currentSquadNames.push(squad.name));
     if (!currentSquadNames.includes(newSquadList.name)) {
-      this.setState({ isNameDuplicate: false });
-      const tempSquadList = newSquadList;
+      const tempSquadList = { ...this.state.newSquadList };
       tempSquadList.uid = firebase.auth().currentUser.uid;
       tempSquadList.name = newSquadList.name;
       tempSquadList.description = newSquadList.description;
       squadListData.postSquadList(tempSquadList)
         .then(() => {
-          this.getSquadLists();
           this.toggle();
+          this.getSquadLists();
         })
         .catch(err => console.error('didnt post squadlist', err));
     } else {
@@ -68,19 +67,56 @@ class SquadManager extends React.Component {
   }
 
   openSquadListModal = () => {
+    this.setState({ newSquadList: defaultSquadList });
     this.toggle();
+  }
+
+  openUpdateSquadListModal = (squadListId) => {
+    const action = 'update';
+    this.toggle(action, squadListId);
   }
 
   squadDescriptionChange = e => this.formFieldStringState('description', e);
 
   squadNameChange = e => this.formFieldStringState('name', e);
 
-  toggle = () => {
-    this.setState({ newSquadList: defaultSquadList });
-    this.setState({ isNameDuplicate: false });
-    this.setState(prevState => ({
-      modal: !prevState.modal,
-    }));
+  toggle = (action, squadListId) => {
+    if (action === 'update') {
+      const squadToUpdate = this.state.squadLists.find(squadList => squadList.id === squadListId);
+      this.setState({ newSquadList: squadToUpdate });
+      this.setState(prevState => ({
+        modal: !prevState.modal,
+      }));
+    } else {
+      this.setState({ isNameDuplicate: false });
+      this.setState(prevState => ({
+        modal: !prevState.modal,
+      }));
+    }
+  }
+
+  updateSquadList = () => {
+    const { newSquadList } = this.state;
+    let currentSquadNames = [];
+    this.state.squadLists.map(squad => currentSquadNames.push(squad.name));
+    currentSquadNames = currentSquadNames.filter(squad => squad !== newSquadList.name);
+    if (!currentSquadNames.includes(newSquadList.name)) {
+      this.setState({ isNameDuplicate: false });
+      const tempSquadList = { ...this.state.newSquadList };
+      const squadListId = tempSquadList.id;
+      delete tempSquadList.id;
+      tempSquadList.uid = firebase.auth().currentUser.uid;
+      tempSquadList.name = newSquadList.name;
+      tempSquadList.description = newSquadList.description;
+      squadListData.putSquadList(tempSquadList, squadListId)
+        .then(() => {
+          this.toggle();
+          this.getSquadLists();
+        })
+        .catch(err => console.error('didnt put squadlist', err));
+    } else {
+      this.setState({ isNameDuplicate: true });
+    }
   }
 
   render() {
@@ -89,6 +125,7 @@ class SquadManager extends React.Component {
         key={squadList.id}
         squadList={squadList}
         deleteSquadList={this.deleteSquadList}
+        openUpdateSquadListModal={this.openUpdateSquadListModal}
       />
     ));
 
@@ -99,15 +136,17 @@ class SquadManager extends React.Component {
           addNewSquadList={this.addNewSquadList}
           isNameDuplicate={this.state.isNameDuplicate}
           modal={this.state.modal}
+          newSquadList={this.state.newSquadList}
           squadDescriptionChange={this.squadDescriptionChange}
           squadNameChange={this.squadNameChange}
           toggle={this.toggle}
+          updateSquadList={this.updateSquadList}
         />
         <div className="d-flex flex-row flex-wrap justify-content-center">
           <div className="SquadListCard col-4">
             <div className="card">
               <div className="card-body">
-                <button className="btn btn-outline-success" onClick={this.openSquadListModal}>New Squad List</button>
+                <button className="btn-sm btn-outline-primary" onClick={this.openSquadListModal}>New Squad List</button>
               </div>
             </div>
           </div>
