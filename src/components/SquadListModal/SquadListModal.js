@@ -11,91 +11,182 @@ import {
   ModalFooter,
 } from 'reactstrap';
 
-class SquadListModal extends React.Component {
-  render() {
+class SquadModal extends React.Component {
+  buildAndSelectSquadModal = () => {
     const {
+      addNewSquadRow,
       modal,
-      toggle,
-      squadNameChange,
-      squadDescriptionChange,
+      newSquad,
       squadCharacter1IdChange,
       squadCharacter2IdChange,
       squadCharacter3IdChange,
       squadCharacter4IdChange,
       squadCharacter5IdChange,
-      addNewSquadRow,
+      squadDescriptionChange,
+      squadNameChange,
+      toggle,
+      updateSquadRow,
     } = this.props;
-    return (
-      <div>
-        {/* <Button color="danger" onClick={toggle}>toggle button</Button> */}
+    if (newSquad.id) {
+      return (
         <Modal isOpen={modal} toggle={toggle}>
-          <ModalHeader toggle={toggle}>Name your Squad List</ModalHeader>
+          <ModalHeader toggle={toggle}>Edit Squad</ModalHeader>
           <ModalBody>
             <Form>
               <FormGroup>
-                <Label for="squadListName">Squad List Name</Label>
+                <Label for="squadName">Squad Name</Label>
                 <Input
-                  type="text"
-                  name="squadNameInput"
                   id="squadName"
-                  placeholder="Sith Empire"
+                  name="squadNameInput"
                   onChange={squadNameChange}
+                  placeholder="Sith Empire"
+                  type="text"
+                  value={newSquad.name}
                 />
                 <Label for="squadDescription">Description</Label>
                 <Input
-                  type="text"
-                  name="squadDescriptionInput"
                   id="squadDescription"
-                  placeholder="All zetas on Darth Revan required!"
+                  name="squadDescriptionInput"
                   onChange={squadDescriptionChange}
-                />
-                <Label for="squadDescription">Characters</Label>
-                <Input
+                  placeholder="All zetas on Darth Revan required!"
                   type="text"
+                  value={newSquad.description}
+                />
+                <Label for="squadCharacter1Id">Character 1</Label>
+                <Input
+                  id="squadCharacter1Id"
                   name="squadCharacter1IdInput"
-                  id="squadCharacter1IdDescription"
-                  placeholder="Darth Revan"
                   onChange={squadCharacter1IdChange}
-                />
-                <Input
+                  placeholder="Darth Revan"
                   type="text"
+                  value={newSquad.character1Id}
+                />
+                <Label for="squadCharacter2Id">Character 2</Label>
+                <Input
+                  id="squadCharacter2Id"
                   name="squadCharacter2IdInput"
-                  id="squadCharacter2IdDescription"
-                  placeholder="Darth Malak"
                   onChange={squadCharacter2IdChange}
-                />
-                <Input
+                  placeholder="Darth Malak"
                   type="text"
+                  value={newSquad.character2Id}
+                />
+                <Label for="squadCharacter3Id">Character 3</Label>
+                <Input
+                  id="squadCharacter3Id"
                   name="squadCharacter3IdInput"
-                  id="squadCharacter3IdDescription"
-                  placeholder="Bastila Shan (Fallen)"
                   onChange={squadCharacter3IdChange}
-                />
-                <Input
+                  placeholder="Bastila Shan (Fallen)"
                   type="text"
+                  value={newSquad.character3Id}
+                />
+                <Label for="squadCharacter4Id">Character 4</Label>
+                <Input
+                  id="squadCharacter4Id"
                   name="squadCharacter4IdInput"
-                  id="squadCharacter4IdDescription"
-                  placeholder="HK-47"
                   onChange={squadCharacter4IdChange}
-                />
-                <Input
+                  placeholder="HK-47"
                   type="text"
+                  value={newSquad.character4Id}
+                />
+                <Label for="squadCharacter5Id">Character 5</Label>
+                <Input
+                  id="squadCharacter5Id"
                   name="squadCharacter5IdInput"
-                  id="squadCharacter5IdDescription"
-                  placeholder="Sith Trooper"
                   onChange={squadCharacter5IdChange}
+                  placeholder="Sith Trooper"
+                  type="text"
+                  value={newSquad.character5Id}
                 />
               </FormGroup>
             </Form>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={addNewSquadRow}>Submit</Button>{' '}
+            <Button color="primary" onClick={updateSquadRow}>Submit</Button>{' '}
             <Button color="secondary" onClick={toggle}>Cancel</Button>
           </ModalFooter>
         </Modal>
+      );
+    }
+    return (
+      <Modal isOpen={modal} toggle={toggle}>
+      <ModalHeader toggle={toggle}>New Squad</ModalHeader>
+      <ModalBody>
+        <Form>
+          <FormGroup>
+            <Label for="squadName">Squad List Name</Label>
+            <Input
+              id="squadName"
+              name="squadNameInput"
+              placeholder="Sith Empire"
+              onChange={squadNameChange}
+              type="text"
+            />
+            <Label for="squadDescription">Description</Label>
+            <Input
+              id="squadDescription"
+              name="squadDescriptionInput"
+              onChange={squadDescriptionChange}
+              placeholder="All zetas on Darth Revan required!"
+              type="text"
+            />
+            <Label for="squadCharacter1IdInput">Character 1</Label>
+            <Input
+              id="squadCharacter1IdInput"
+              name="squadCharacter1IdInput"
+              onChange={squadCharacter1IdChange}
+              placeholder="Darth Revan"
+              type="text"
+            />
+            <Label for="squadCharacter2IdInput">Character 2</Label>
+            <Input
+              id="squadCharacter2IdInput"
+              name="squadCharacter2IdInput"
+              onChange={squadCharacter2IdChange}
+              placeholder="Darth Malak"
+              type="text"
+            />
+            <Label for="squadCharacter3IdInput">Character 3</Label>
+            <Input
+              id="squadCharacter3IdInput"
+              name="squadCharacter3IdInput"
+              onChange={squadCharacter3IdChange}
+              placeholder="Bastila Shan (Fallen)"
+              type="text"
+            />
+            <Label for="squadCharacter4IdInput">Character 4</Label>
+            <Input
+              id="squadCharacter4IdInput"
+              name="squadCharacter4IdInput"
+              onChange={squadCharacter4IdChange}
+              placeholder="HK-47"
+              type="text"
+            />
+            <Label for="squadCharacter5IdInput">Character 5</Label>
+            <Input
+              id="squadCharacter5IdInput"
+              name="squadCharacter5IdInput"
+              onChange={squadCharacter5IdChange}
+              placeholder="Sith Trooper"
+              type="text"
+            />
+          </FormGroup>
+        </Form>
+      </ModalBody>
+      <ModalFooter>
+        <Button color="primary" onClick={addNewSquadRow}>Submit</Button>{' '}
+        <Button color="secondary" onClick={toggle}>Cancel</Button>
+      </ModalFooter>
+    </Modal>
+    );
+  }
+
+  render() {
+    return (
+      <div>
+        {this.buildAndSelectSquadModal()}
       </div>
     );
   }
 }
 
-export default SquadListModal;
+export default SquadModal;
