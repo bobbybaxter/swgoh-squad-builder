@@ -6,8 +6,9 @@ import 'firebase/auth';
 import SquadRow from '../SquadRow/SquadRow';
 import SquadListModal from '../SquadListModal/SquadListModal';
 
-import squadListData from '../../helpers/data/squadListData';
+import characterData from '../../helpers/data/characterData';
 import squadData from '../../helpers/data/squadData';
+import squadListData from '../../helpers/data/squadListData';
 
 // import squadListShape from '../../helpers/propz/squadListShape';
 
@@ -24,6 +25,7 @@ const defaultSquad = {
 
 class SquadList extends React.Component {
   state = {
+    characters: [],
     modal: false,
     newSquad: defaultSquad,
     squadList: {},
@@ -56,6 +58,7 @@ class SquadList extends React.Component {
     const squadListId = this.props.match.params.id;
     this.getSquadList(squadListId);
     this.getSquadsBySquadList(squadListId);
+    this.getCharacters();
   }
 
   deleteSquad = (squadId) => {
@@ -68,10 +71,28 @@ class SquadList extends React.Component {
       .catch(err => console.error(err));
   }
 
-  formFieldStringState = (name, e) => {
-    const tempSquad = { ...this.state.newSquad };
-    tempSquad[name] = e.target.value;
-    this.setState({ newSquad: tempSquad });
+  formFieldStringState = (input, e) => {
+    if (input === 'name') {
+      const tempSquad = { ...this.state.newSquad };
+      tempSquad[input] = e.target.value;
+      this.setState({ newSquad: tempSquad });
+    } else if (input === 'description') {
+      const tempSquad = { ...this.state.newSquad };
+      tempSquad[input] = e.target.value;
+      this.setState({ newSquad: tempSquad });
+    } else {
+      const tempSquad = { ...this.state.newSquad };
+      const characterName = e.target.value;
+      const character = this.state.characters.find(x => x.name === characterName);
+      tempSquad[input] = character.base_id;
+      this.setState({ newSquad: tempSquad });
+    }
+  }
+
+  getCharacters = () => {
+    characterData.getAllCharacters()
+      .then(res => this.setState({ characters: res }))
+      .catch(err => console.error(err));
   }
 
   getSquadList = (squadListId) => {
@@ -149,13 +170,14 @@ class SquadList extends React.Component {
   }
 
   render() {
-    const { squadList } = this.state;
+    const { characters, squadList } = this.state;
     const squadComponents = this.state.squads.map(squad => (
       <SquadRow
-        key={squad.id}
-        squad={squad}
+        characters={characters}
         deleteSquad={this.deleteSquad}
+        key={squad.id}
         openUpdateSquadRowModal={this.openUpdateSquadRowModal}
+        squad={squad}
       />
     ));
 
@@ -163,6 +185,7 @@ class SquadList extends React.Component {
       <div className="SquadList col-12 justify-content-center">
         <SquadListModal
           addNewSquadRow={this.addNewSquadRow}
+          characters={characters}
           modal={this.state.modal}
           newSquad={this.state.newSquad}
           squadCharacter1IdChange={this.squadCharacter1IdChange}

@@ -1,6 +1,7 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 
+import characterData from '../../helpers/data/characterData';
 import squadShape from '../../helpers/propz/squadShape';
 
 import './SquadRow.scss';
@@ -10,10 +11,33 @@ class SquadRow extends React.Component {
     squadList: squadShape.squadShape,
   }
 
+  state = {
+    character1: [],
+    character2: [],
+    character3: [],
+    character4: [],
+    character5: [],
+  }
+
+  associateCharacter = (characterId, characterPosition) => {
+    const character = this.state.characters.find(x => x.base_id === characterId);
+    this.setState({ [characterPosition]: character });
+  }
+
+  componentDidMount() {
+    this.getCharacters();
+  }
+
   deleteMe = (e) => {
     e.preventDefault();
     const { squad, deleteSquad } = this.props;
     deleteSquad(squad.id);
+  }
+
+  getCharacters = () => {
+    characterData.getAllCharacters()
+      .then(res => this.setState({ characters: res }))
+      .catch(err => console.error(err));
   }
 
   updateMe = (e) => {
@@ -24,6 +48,8 @@ class SquadRow extends React.Component {
 
   render() {
     const { squad } = this.props;
+    // NEED TO CREATE A NEW COMPONENT AND LOOP THROUGH THE CHARACTER IDS TO BUILD THE CARDS
+
     return (
       <div className="SquadRow">
         <div className="card col-12">
