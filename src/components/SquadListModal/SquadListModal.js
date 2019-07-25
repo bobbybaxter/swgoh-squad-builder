@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Button,
   Form,
@@ -10,8 +11,25 @@ import {
   ModalBody,
   ModalFooter,
 } from 'reactstrap';
+import newSquadListShape from '../../helpers/propz/newSquadListShape';
 
 class SquadModal extends React.Component {
+  static propTypes = {
+    addNewSquadRow: PropTypes.func.isRequired,
+    characters: PropTypes.array.isRequired,
+    modal: PropTypes.bool.isRequired,
+    newSquad: newSquadListShape.newSquadListShape,
+    squadCharacter1IdChange: PropTypes.func.isRequired,
+    squadCharacter2IdChange: PropTypes.func.isRequired,
+    squadCharacter3IdChange: PropTypes.func.isRequired,
+    squadCharacter4IdChange: PropTypes.func.isRequired,
+    squadCharacter5IdChange: PropTypes.func.isRequired,
+    squadDescriptionChange: PropTypes.func.isRequired,
+    squadNameChange: PropTypes.func.isRequired,
+    toggle: PropTypes.func.isRequired,
+    updateSquadRow: PropTypes.func.isRequired,
+  }
+
   loadCharacterSelectors = (character) => {
     const characterId = character.base_id;
     return (

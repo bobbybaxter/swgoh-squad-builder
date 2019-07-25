@@ -19,6 +19,7 @@ const defaultSquad = {
   character4Id: '',
   character5Id: '',
   description: '',
+  id: '',
   name: '',
   squadListId: '',
 };
@@ -170,16 +171,23 @@ class SquadList extends React.Component {
   }
 
   render() {
-    const { characters, squadList } = this.state;
-    const squadComponents = this.state.squads.map(squad => (
-      <SquadRow
-        characters={characters}
-        deleteSquad={this.deleteSquad}
-        key={squad.id}
-        openUpdateSquadRowModal={this.openUpdateSquadRowModal}
-        squad={squad}
-      />
-    ));
+    const { characters, squadList, squads } = this.state;
+    const squadComponents = squads.map((squad) => {
+      const syncedSquad = [];
+      const toon1 = characters.filter(x => x.base_id === squad.character1Id);
+      const toon2 = characters.filter(x => x.base_id === squad.character2Id);
+      const toon3 = characters.filter(x => x.base_id === squad.character3Id);
+      const toon4 = characters.filter(x => x.base_id === squad.character4Id);
+      const toon5 = characters.filter(x => x.base_id === squad.character5Id);
+      syncedSquad.push(toon1[0], toon2[0], toon3[0], toon4[0], toon5[0]);
+      return <SquadRow
+          deleteSquad={this.deleteSquad}
+          key={squad.id}
+          openUpdateSquadRowModal={this.openUpdateSquadRowModal}
+          squad={squad}
+          syncedSquad={syncedSquad}
+        />;
+    });
 
     return (
       <div className="SquadList col-12 justify-content-center">
