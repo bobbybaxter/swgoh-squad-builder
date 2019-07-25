@@ -2,14 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import squadListShape from '../../helpers/propz/squadListShape';
+import newSquadListShape from '../../helpers/propz/newSquadListShape';
 
 import './SquadListCard.scss';
 
 class SquadListCard extends React.Component {
   static propTypes = {
-    squadList: squadListShape.squadListShape,
     deleteSquadList: PropTypes.func.isRequired,
+    openUpdateSquadListModal: PropTypes.func.isRequired,
+    squadList: newSquadListShape.newSquadListShape,
   }
 
   deleteMe = (e) => {

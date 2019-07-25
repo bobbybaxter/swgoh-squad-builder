@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types';
 
-const squadListShape = PropTypes.shape({
+const newSquadListShape = PropTypes.shape({
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  squads: PropTypes.object,
-  uid: PropTypes.string.isRequired,
+  uid: PropTypes.string,
 });
 
-export default { squadListShape };
+export default { newSquadListShape };

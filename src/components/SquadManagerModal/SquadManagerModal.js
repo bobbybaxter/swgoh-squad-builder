@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Button,
   Form,
@@ -11,8 +12,20 @@ import {
   ModalFooter,
   UncontrolledAlert,
 } from 'reactstrap';
+import newSquadListShape from '../../helpers/propz/newSquadListShape';
 
 class SquadManagerModal extends React.Component {
+  static propTypes = {
+    addNewSquadList: PropTypes.func.isRequired,
+    isNameDuplicate: PropTypes.bool.isRequired,
+    modal: PropTypes.bool.isRequired,
+    newSquadList: newSquadListShape.newSquadListShape,
+    squadDescriptionChange: PropTypes.func.isRequired,
+    squadNameChange: PropTypes.func.isRequired,
+    toggle: PropTypes.func.isRequired,
+    updateSquadList: PropTypes.func.isRequired,
+  }
+
   buildAndSelectSquadManagerModal = () => {
     const {
       addNewSquadList,

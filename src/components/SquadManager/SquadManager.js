@@ -11,8 +11,9 @@ import './SquadManager.scss';
 
 const defaultSquadList = {
   description: '',
+  id: '',
   name: '',
-  squads: {},
+  uid: '',
 };
 
 class SquadManager extends React.Component {
@@ -122,10 +123,10 @@ class SquadManager extends React.Component {
   render() {
     const makeSquadListCards = this.state.squadLists.map(squadList => (
       <SquadListCard
-        key={squadList.id}
-        squadList={squadList}
         deleteSquadList={this.deleteSquadList}
+        key={squadList.id}
         openUpdateSquadListModal={this.openUpdateSquadListModal}
+        squadList={squadList}
       />
     ));
 

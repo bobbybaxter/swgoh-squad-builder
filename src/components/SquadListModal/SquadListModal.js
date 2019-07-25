@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Button,
   Form,
@@ -10,11 +11,38 @@ import {
   ModalBody,
   ModalFooter,
 } from 'reactstrap';
+import newSquadListShape from '../../helpers/propz/newSquadListShape';
 
 class SquadModal extends React.Component {
+  static propTypes = {
+    addNewSquadRow: PropTypes.func.isRequired,
+    characters: PropTypes.array.isRequired,
+    modal: PropTypes.bool.isRequired,
+    newSquad: newSquadListShape.newSquadListShape,
+    squadCharacter1IdChange: PropTypes.func.isRequired,
+    squadCharacter2IdChange: PropTypes.func.isRequired,
+    squadCharacter3IdChange: PropTypes.func.isRequired,
+    squadCharacter4IdChange: PropTypes.func.isRequired,
+    squadCharacter5IdChange: PropTypes.func.isRequired,
+    squadDescriptionChange: PropTypes.func.isRequired,
+    squadNameChange: PropTypes.func.isRequired,
+    toggle: PropTypes.func.isRequired,
+    updateSquadRow: PropTypes.func.isRequired,
+  }
+
+  loadCharacterSelectors = (character) => {
+    const characterId = character.base_id;
+    return (
+      <option key={characterId} value={character.id}>
+        {character.name}
+      </option>
+    );
+  }
+
   buildAndSelectSquadModal = () => {
     const {
       addNewSquadRow,
+      characters,
       modal,
       newSquad,
       squadCharacter1IdChange,
@@ -53,50 +81,25 @@ class SquadModal extends React.Component {
                   value={newSquad.description}
                 />
                 <Label for="squadCharacter1Id">Character 1</Label>
-                <Input
-                  id="squadCharacter1Id"
-                  name="squadCharacter1IdInput"
-                  onChange={squadCharacter1IdChange}
-                  placeholder="Darth Revan"
-                  type="text"
-                  value={newSquad.character1Id}
-                />
+                <Input id="squadCharacter1Id" name="squadCharacter1IdInput" onChange={squadCharacter1IdChange} type="select" value={newSquad.character1Id}>
+                  {characters.map(this.loadCharacterSelectors)}
+                </Input>
                 <Label for="squadCharacter2Id">Character 2</Label>
-                <Input
-                  id="squadCharacter2Id"
-                  name="squadCharacter2IdInput"
-                  onChange={squadCharacter2IdChange}
-                  placeholder="Darth Malak"
-                  type="text"
-                  value={newSquad.character2Id}
-                />
+                <Input id="squadCharacter2Id" name="squadCharacter2IdInput" onChange={squadCharacter2IdChange} type="select">
+                  {characters.map(this.loadCharacterSelectors)}
+                </Input>
                 <Label for="squadCharacter3Id">Character 3</Label>
-                <Input
-                  id="squadCharacter3Id"
-                  name="squadCharacter3IdInput"
-                  onChange={squadCharacter3IdChange}
-                  placeholder="Bastila Shan (Fallen)"
-                  type="text"
-                  value={newSquad.character3Id}
-                />
+                <Input id="squadCharacter3Id" name="squadCharacter3IdInput" onChange={squadCharacter3IdChange} type="select" >
+                  {characters.map(this.loadCharacterSelectors)}
+                </Input>
                 <Label for="squadCharacter4Id">Character 4</Label>
-                <Input
-                  id="squadCharacter4Id"
-                  name="squadCharacter4IdInput"
-                  onChange={squadCharacter4IdChange}
-                  placeholder="HK-47"
-                  type="text"
-                  value={newSquad.character4Id}
-                />
+                <Input id="squadCharacter4Id" name="squadCharacter4IdInput" onChange={squadCharacter4IdChange} type="select" >
+                  {characters.map(this.loadCharacterSelectors)}
+                </Input>
                 <Label for="squadCharacter5Id">Character 5</Label>
-                <Input
-                  id="squadCharacter5Id"
-                  name="squadCharacter5IdInput"
-                  onChange={squadCharacter5IdChange}
-                  placeholder="Sith Trooper"
-                  type="text"
-                  value={newSquad.character5Id}
-                />
+                <Input id="squadCharacter5Id" name="squadCharacter5IdInput" onChange={squadCharacter5IdChange} type="select" >
+                  {characters.map(this.loadCharacterSelectors)}
+                </Input>
               </FormGroup>
             </Form>
           </ModalBody>
@@ -130,45 +133,30 @@ class SquadModal extends React.Component {
               type="text"
             />
             <Label for="squadCharacter1IdInput">Character 1</Label>
-            <Input
-              id="squadCharacter1IdInput"
-              name="squadCharacter1IdInput"
-              onChange={squadCharacter1IdChange}
-              placeholder="Darth Revan"
-              type="text"
-            />
+            <Input id="squadCharacter1IdInput" name="squadCharacter1IdInput" onChange={squadCharacter1IdChange} type="select">
+              <option key="defaultCharacter1">Select Leader</option>
+              {characters.map(this.loadCharacterSelectors)}
+            </Input>
             <Label for="squadCharacter2IdInput">Character 2</Label>
-            <Input
-              id="squadCharacter2IdInput"
-              name="squadCharacter2IdInput"
-              onChange={squadCharacter2IdChange}
-              placeholder="Darth Malak"
-              type="text"
-            />
+            <Input id="squadCharacter2IdInput" name="squadCharacter2IdInput" onChange={squadCharacter2IdChange} type="select">
+              <option key="defaultCharacter2">Select Character</option>
+              {characters.map(this.loadCharacterSelectors)}
+            </Input>
             <Label for="squadCharacter3IdInput">Character 3</Label>
-            <Input
-              id="squadCharacter3IdInput"
-              name="squadCharacter3IdInput"
-              onChange={squadCharacter3IdChange}
-              placeholder="Bastila Shan (Fallen)"
-              type="text"
-            />
+            <Input id="squadCharacter3IdInput" name="squadCharacter3IdInput" onChange={squadCharacter3IdChange} type="select">
+              <option key="defaultCharacter3">Select Character</option>
+              {characters.map(this.loadCharacterSelectors)}
+            </Input>
             <Label for="squadCharacter4IdInput">Character 4</Label>
-            <Input
-              id="squadCharacter4IdInput"
-              name="squadCharacter4IdInput"
-              onChange={squadCharacter4IdChange}
-              placeholder="HK-47"
-              type="text"
-            />
+            <Input id="squadCharacter4IdInput" name="squadCharacter4IdInput" onChange={squadCharacter4IdChange} type="select">
+              <option key="defaultCharacter4">Select Character</option>
+              {characters.map(this.loadCharacterSelectors)}
+            </Input>
             <Label for="squadCharacter5IdInput">Character 5</Label>
-            <Input
-              id="squadCharacter5IdInput"
-              name="squadCharacter5IdInput"
-              onChange={squadCharacter5IdChange}
-              placeholder="Sith Trooper"
-              type="text"
-            />
+            <Input id="squadCharacter5IdInput" name="squadCharacter5IdInput" onChange={squadCharacter5IdChange} type="select">
+              <option key="defaultCharacter5">Select Character</option>
+              {characters.map(this.loadCharacterSelectors)}
+            </Input>
           </FormGroup>
         </Form>
       </ModalBody>
