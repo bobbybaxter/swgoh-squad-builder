@@ -33,6 +33,18 @@ class SquadListModal extends React.Component {
     updateSquadRow: PropTypes.func.isRequired,
   }
 
+  character1Event = e => this.props.squadCharacter1Change(e.target.value);
+
+  character2Event = e => this.props.squadCharacter2Change(e.target.value);
+
+  character3Event = e => this.props.squadCharacter3Change(e.target.value);
+
+  character4Event = e => this.props.squadCharacter4Change(e.target.value);
+
+  character5Event = e => this.props.squadCharacter5Change(e.target.value);
+
+  characterPoolAction = e => this.props.addCharacterToSquad(e.target.alt);
+
   loadCharacterImages = (character, newListCharacter) => {
     if (character.name === '') {
       return <span className="noCharacterSelected"></span>;
@@ -40,10 +52,15 @@ class SquadListModal extends React.Component {
     if (character.name === newListCharacter) {
       const image = `https://swgoh.gg${character.image}`;
       return (
-        <img key={character.image} src={image} alt={character.name} className="toonImg"/>
+        <img key={character.image} src={image} alt={character.name} className="toonImg" />
       );
     }
     return '';
+  }
+
+  loadCharacterPool = (character) => {
+    const image = `https://swgoh.gg${character.image}`;
+    return <img key={character.image} src={image} alt={character.name} className="toonPoolImg mb-2" onClick={this.characterPoolAction} />;
   }
 
   loadCharacterSelectors = (character) => {
@@ -74,31 +91,39 @@ class SquadListModal extends React.Component {
     let squadListModal;
     if (newSquad.id) {
       if (newSquad !== undefined) {
+        // EDIT SQUAD MODAL
         squadListModal = <Modal isOpen={modal} toggle={toggle}>
-          {/* <ModalHeader toggle={toggle}>Edit Squad</ModalHeader> */}
           <ModalBody>
-            <Form className="d-flex flex-row">
-              <div className="squadFormLeft col-4">
-                <FormGroup className="squadFormLeftTop">
+            <Form className="squadForm d-flex flex-row">
+              <div className="squadFormLeft col-5">
+                {/* Team Name */}
+                <FormGroup className="squadFormLeftTop h-25">
                   <Label for="squadName">Team Name</Label>
                   <Input
                     id="squadName"
                     name="squadNameInput"
-                    onBlur={squadNameChange}
+                    onChange={squadNameChange}
                     placeholder="Sith Empire"
                     type="text"
                     value={newSquad.name}
                   />
+                {/* Character Pool */}
                 </FormGroup>
+                <div className="squadFormLeftBottom h-75">
+                  <div className="characterPool justify-content-between">
+                    {characters.map(this.loadCharacterPool)}
+                  </div>
+                </div>
               </div>
-              <div className="squadFormRight col-8">
+              <div className="squadFormRight col-7">
                 <FormGroup className="squadFormRightTop">
+                  {/* Squad Characters */}
                   <FormGroup className="squadFormToon">
                     <Label for="squadCharacter1Id" hidden>Character 1</Label>
                     <span className="noCharacterSelected">
                       {characters.map(x => this.loadCharacterImages(x, newSquad.character1))}
                     </span>
-                    <Input id="squadCharacter1Id" name="squadCharacter1IdInput" onChange={squadCharacter1Change} type="select" value={newSquad.character1}>
+                    <Input id="squadCharacter1Id" name="squadCharacter1IdInput" onChange={this.character1Event} type="select" value={newSquad.character1}>
                     <option key="defaultCharacter1">Select Leader</option>
                       {characters.map(this.loadCharacterSelectors)}
                     </Input>
@@ -108,7 +133,7 @@ class SquadListModal extends React.Component {
                     <span className="noCharacterSelected">
                       {characters.map(x => this.loadCharacterImages(x, newSquad.character2))}
                     </span>
-                    <Input id="squadCharacter2Id" name="squadCharacter2IdInput" onChange={squadCharacter2Change} type="select" value={newSquad.character2}>
+                    <Input id="squadCharacter2Id" name="squadCharacter2IdInput" onChange={this.character2Event} type="select" value={newSquad.character2}>
                     <option key="defaultCharacter3">Select Character</option>
                       {characters.map(this.loadCharacterSelectors)}
                     </Input>
@@ -118,7 +143,7 @@ class SquadListModal extends React.Component {
                     <span className="noCharacterSelected">
                       {characters.map(x => this.loadCharacterImages(x, newSquad.character3))}
                     </span>
-                    <Input id="squadCharacter3Id" name="squadCharacter3IdInput" onChange={squadCharacter3Change} type="select" value={newSquad.character3}>
+                    <Input id="squadCharacter3Id" name="squadCharacter3IdInput" onChange={this.character3Event} type="select" value={newSquad.character3}>
                       <option key="defaultCharacter3">Select Character</option>
                       {characters.map(this.loadCharacterSelectors)}
                     </Input>
@@ -128,7 +153,7 @@ class SquadListModal extends React.Component {
                     <span className="noCharacterSelected">
                       {characters.map(x => this.loadCharacterImages(x, newSquad.character4))}
                     </span>
-                    <Input id="squadCharacter4Id" name="squadCharacter4IdInput" onChange={squadCharacter4Change} type="select" value={newSquad.character4}>
+                    <Input id="squadCharacter4Id" name="squadCharacter4IdInput" onChange={this.character4Event} type="select" value={newSquad.character4}>
                       <option key="defaultCharacter3">Select Character</option>
                       {characters.map(this.loadCharacterSelectors)}
                     </Input>
@@ -138,18 +163,19 @@ class SquadListModal extends React.Component {
                     <span className="noCharacterSelected">
                       {characters.map(x => this.loadCharacterImages(x, newSquad.character5))}
                     </span>
-                    <Input id="squadCharacter5Id" name="squadCharacter5IdInput" onChange={squadCharacter5Change} type="select" value={newSquad.character5}>
+                    <Input id="squadCharacter5Id" name="squadCharacter5IdInput" onChange={this.character5Event} type="select" value={newSquad.character5}>
                       <option key="defaultCharacter3">Select Character</option>
                       {characters.map(this.loadCharacterSelectors)}
                     </Input>
                   </FormGroup>
                 </FormGroup>
+                {/* Description Box */}
                 <FormGroup className="squadFormRightBottom">
                   <Label for="squadDescription">Description</Label>
                   <Input
                     id="squadDescription"
                     name="squadDescriptionInput"
-                    onBlur={squadDescriptionChange}
+                    onChange={squadDescriptionChange}
                     placeholder="All zetas on Darth Revan required!"
                     type="textarea"
                     value={newSquad.description}
@@ -157,18 +183,16 @@ class SquadListModal extends React.Component {
                 </FormGroup>
                 <div className="d-flex flex-row justify-content-between">
                   <Button color="secondary" onClick={toggle} className="col-3">Cancel</Button>
-                  <Button color="primary" onClick={updateSquadRow} className="col-8">Edit squad</Button>{' '}
+                  <Button color="primary" onClick={updateSquadRow} className="col-8">Save squad</Button>{' '}
                 </div>
               </div>
             </Form>
           </ModalBody>
-          {/* <ModalFooter>
-          </ModalFooter> */}
         </Modal>;
       }
     } else {
+      // NEW SQUAD MODAL
       squadListModal = <Modal isOpen={modal} toggle={toggle}>
-          {/* <ModalHeader toggle={toggle}>New Squad</ModalHeader> */}
           <ModalBody>
             <Form>
               <FormGroup className="squadFormLeft">
@@ -249,8 +273,6 @@ class SquadListModal extends React.Component {
               <Button color="primary" onClick={addNewSquadRow} className="col-8">Add new squad</Button>{' '}
             </div>
           </ModalBody>
-          {/* <ModalFooter>
-          </ModalFooter> */}
         </Modal>;
     }
 

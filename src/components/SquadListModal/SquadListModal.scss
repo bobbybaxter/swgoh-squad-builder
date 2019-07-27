@@ -2,6 +2,14 @@
   display: block;
 }
 
+.characterPool {
+  display: flex;
+  flex-flow: row wrap;
+  overflow: scroll;
+  background-color: lightyellow;
+  padding-bottom: 10px;
+}
+
 .modal {
   font-size: .9rem;
 
@@ -21,12 +29,25 @@
   border-radius: 50%;
 }
 
+.squadForm {
+  max-height: 277px;
+}
+
 .squadFormButtons {
   display: flex;
   flex-direction: row;
 }
 
+.squadFormLeft {
+  overflow: hidden;
+}
+
 .squadFormLeftTop {
+  display: flex;
+  flex-direction: column;
+}
+
+.squadFormLeftBottom {
   display: flex;
   flex-direction: column;
 }
@@ -47,8 +68,13 @@
   align-items: center;
 }
 
+.toonPoolImg {
+  width: 55px;
+  border-radius: 50px;
+}
+
 @media (min-width: 576px) {
   .modal-dialog {
-    max-width: none;
+    max-width: 650px;
   }
 }
