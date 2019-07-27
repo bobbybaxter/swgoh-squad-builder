@@ -1,3 +1,54 @@
 .SquadListModal {
   display: block;
 }
+
+.modal {
+  font-size: .9rem;
+
+  input {
+    font-size: .9rem;
+  }
+
+  select {
+    font-size: .8rem;
+  }
+}
+
+.noCharacterSelected {
+  width: 65px;
+  height: 65px;
+  background-color: #bbb;
+  border-radius: 50%;
+}
+
+.squadFormButtons {
+  display: flex;
+  flex-direction: row;
+}
+
+.squadFormLeftTop {
+  display: flex;
+  flex-direction: column;
+}
+
+.squadFormRightButtom {
+  display: flex;
+  flex-direction: column;
+}
+
+.squadFormRightTop {
+  display: flex;
+  flex-direction: row;
+}
+
+.squadFormToon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (min-width: 576px) {
+  .modal-dialog {
+    max-width: none;
+  }
+}

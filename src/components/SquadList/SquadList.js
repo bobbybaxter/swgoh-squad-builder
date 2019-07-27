@@ -74,16 +74,20 @@ class SquadList extends React.Component {
   }
 
   formFieldStringState = (input, e) => {
-    if (input === 'name') {
-      const tempSquad = { ...this.state.newSquad };
+    const tempSquad = { ...this.state.newSquad };
+    if (e.target.value === 'Select Leader') {
+      tempSquad[input] = '';
+      this.setState({ newSquad: tempSquad });
+    } else if (e.target.value === 'Select Character') {
+      tempSquad[input] = '';
+      this.setState({ newSquad: tempSquad });
+    } else if (input === 'name') {
       tempSquad[input] = e.target.value;
       this.setState({ newSquad: tempSquad });
     } else if (input === 'description') {
-      const tempSquad = { ...this.state.newSquad };
       tempSquad[input] = e.target.value;
       this.setState({ newSquad: tempSquad });
     } else {
-      const tempSquad = { ...this.state.newSquad };
       const characterName = e.target.value;
       const character = this.state.characters.find(x => x.name === characterName);
       tempSquad[input] = character.name;
