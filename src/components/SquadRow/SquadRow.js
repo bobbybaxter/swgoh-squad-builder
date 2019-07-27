@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 
 import SquadMember from '../SquadMember/SquadMember';
 
-import './SquadRow.scss';
 import squadShape from '../../helpers/propz/squadShape';
 import characterData from '../../helpers/data/characterData';
+
+import './SquadRow.scss';
 
 class SquadRow extends React.Component {
   static propTypes = {
@@ -42,7 +43,6 @@ class SquadRow extends React.Component {
       character4,
       character5,
     } = this.props.squad;
-    console.error('props Squad', this.props.squad);
     characterData
       .getCharactersBySquad(character1, character2, character3, character4, character5)
       .then(res => this.setState({ squadMembers: res }))
