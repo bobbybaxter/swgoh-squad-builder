@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 
 const squadShape = PropTypes.shape({
-  character1Id: PropTypes.string.isRequired,
-  character2Id: PropTypes.string.isRequired,
-  character3Id: PropTypes.string.isRequired,
-  character4Id: PropTypes.string.isRequired,
-  character5Id: PropTypes.string.isRequired,
+  character1: PropTypes.string.isRequired,
+  character2: PropTypes.string.isRequired,
+  character3: PropTypes.string.isRequired,
+  character4: PropTypes.string.isRequired,
+  character5: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,

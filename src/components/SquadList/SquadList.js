@@ -13,11 +13,11 @@ import squadListData from '../../helpers/data/squadListData';
 // import squadListShape from '../../helpers/propz/squadListShape';
 
 const defaultSquad = {
-  character1Id: '',
-  character2Id: '',
-  character3Id: '',
-  character4Id: '',
-  character5Id: '',
+  character1: '',
+  character2: '',
+  character3: '',
+  character4: '',
+  character5: '',
   description: '',
   id: '',
   name: '',
@@ -29,6 +29,7 @@ class SquadList extends React.Component {
     characters: [],
     modal: false,
     newSquad: defaultSquad,
+    squadForModal: [],
     squadList: {},
     squads: [],
   }
@@ -37,11 +38,11 @@ class SquadList extends React.Component {
     const { newSquad } = this.state;
     const squadListId = this.props.match.params.id;
     const tempSquad = newSquad;
-    tempSquad.character1Id = newSquad.character1Id;
-    tempSquad.character2Id = newSquad.character2Id;
-    tempSquad.character3Id = newSquad.character3Id;
-    tempSquad.character4Id = newSquad.character4Id;
-    tempSquad.character5Id = newSquad.character5Id;
+    tempSquad.character1 = newSquad.character1;
+    tempSquad.character2 = newSquad.character2;
+    tempSquad.character3 = newSquad.character3;
+    tempSquad.character4 = newSquad.character4;
+    tempSquad.character5 = newSquad.character5;
     tempSquad.description = newSquad.description;
     tempSquad.squadListId = squadListId;
     tempSquad.name = newSquad.name;
@@ -85,7 +86,7 @@ class SquadList extends React.Component {
       const tempSquad = { ...this.state.newSquad };
       const characterName = e.target.value;
       const character = this.state.characters.find(x => x.name === characterName);
-      tempSquad[input] = character.base_id;
+      tempSquad[input] = character.name;
       this.setState({ newSquad: tempSquad });
     }
   }
@@ -93,6 +94,20 @@ class SquadList extends React.Component {
   getCharacters = () => {
     characterData.getAllCharacters()
       .then(res => this.setState({ characters: res }))
+      .catch(err => console.error(err));
+  }
+
+  getSquadCharacters = (squad) => {
+    const {
+      character1,
+      character2,
+      character3,
+      character4,
+      character5,
+    } = squad;
+    characterData
+      .getCharactersBySquad(character1, character2, character3, character4, character5)
+      .then(res => this.setState({ NewSquad: res }))
       .catch(err => console.error(err));
   }
 
@@ -109,33 +124,34 @@ class SquadList extends React.Component {
   }
 
   openSquadRowModal = () => {
+    console.error('clicked squad row modal');
     this.setState({ newSquad: defaultSquad });
     this.toggle();
   }
 
-  openUpdateSquadRowModal = (squadId) => {
+  openUpdateSquadRowModal = (squad) => {
     const action = 'update';
-    this.toggle(action, squadId);
+    this.toggle(action, squad);
   }
 
-  squadCharacter1IdChange = e => this.formFieldStringState('character1Id', e);
+  squadCharacter1Change = e => this.formFieldStringState('character1', e);
 
-  squadCharacter2IdChange = e => this.formFieldStringState('character2Id', e);
+  squadCharacter2Change = e => this.formFieldStringState('character2', e);
 
-  squadCharacter3IdChange = e => this.formFieldStringState('character3Id', e);
+  squadCharacter3Change = e => this.formFieldStringState('character3', e);
 
-  squadCharacter4IdChange = e => this.formFieldStringState('character4Id', e);
+  squadCharacter4Change = e => this.formFieldStringState('character4', e);
 
-  squadCharacter5IdChange = e => this.formFieldStringState('character5Id', e);
+  squadCharacter5Change = e => this.formFieldStringState('character5', e);
 
   squadDescriptionChange = e => this.formFieldStringState('description', e);
 
   squadNameChange = e => this.formFieldStringState('name', e);
 
-  toggle = (action, squadId) => {
+  toggle = (action, squad) => {
     if (action === 'update') {
-      const squadToUpdate = this.state.squads.find(squad => squad.id === squadId);
-      this.setState({ newSquad: squadToUpdate });
+      this.setState({ newSquad: squad });
+      this.getSquadCharacters(squad);
       this.setState(prevState => ({
         modal: !prevState.modal,
       }));
@@ -155,11 +171,11 @@ class SquadList extends React.Component {
     tempSquad.uid = firebase.auth().currentUser.uid;
     tempSquad.name = newSquad.name;
     tempSquad.description = newSquad.description;
-    tempSquad.character1Id = newSquad.character1Id;
-    tempSquad.character2Id = newSquad.character2Id;
-    tempSquad.character3Id = newSquad.character3Id;
-    tempSquad.character4Id = newSquad.character4Id;
-    tempSquad.character5Id = newSquad.character5Id;
+    tempSquad.character1 = newSquad.character1;
+    tempSquad.character2 = newSquad.character2;
+    tempSquad.character3 = newSquad.character3;
+    tempSquad.character4 = newSquad.character4;
+    tempSquad.character5 = newSquad.character5;
     tempSquad.uid = newSquad.uid;
     squadData.putSquad(tempSquad, squadId)
       .then(() => {
@@ -172,22 +188,12 @@ class SquadList extends React.Component {
 
   render() {
     const { characters, squadList, squads } = this.state;
-    const squadComponents = squads.map((squad) => {
-      const syncedSquad = [];
-      const toon1 = characters.filter(x => x.base_id === squad.character1Id);
-      const toon2 = characters.filter(x => x.base_id === squad.character2Id);
-      const toon3 = characters.filter(x => x.base_id === squad.character3Id);
-      const toon4 = characters.filter(x => x.base_id === squad.character4Id);
-      const toon5 = characters.filter(x => x.base_id === squad.character5Id);
-      syncedSquad.push(toon1[0], toon2[0], toon3[0], toon4[0], toon5[0]);
-      return <SquadRow
+    const squadComponents = squads.map(squad => <SquadRow
           deleteSquad={this.deleteSquad}
           key={squad.id}
           openUpdateSquadRowModal={this.openUpdateSquadRowModal}
           squad={squad}
-          syncedSquad={syncedSquad}
-        />;
-    });
+        />);
 
     return (
       <div className="SquadList col-12 justify-content-center">
@@ -196,12 +202,13 @@ class SquadList extends React.Component {
           characters={characters}
           modal={this.state.modal}
           newSquad={this.state.newSquad}
-          squadCharacter1IdChange={this.squadCharacter1IdChange}
-          squadCharacter2IdChange={this.squadCharacter2IdChange}
-          squadCharacter3IdChange={this.squadCharacter3IdChange}
-          squadCharacter4IdChange={this.squadCharacter4IdChange}
-          squadCharacter5IdChange={this.squadCharacter5IdChange}
+          squadCharacter1Change={this.squadCharacter1Change}
+          squadCharacter2Change={this.squadCharacter2Change}
+          squadCharacter3Change={this.squadCharacter3Change}
+          squadCharacter4Change={this.squadCharacter4Change}
+          squadCharacter5Change={this.squadCharacter5Change}
           squadDescriptionChange={this.squadDescriptionChange}
+          squadForModal={this.state.squadForModal}
           squadNameChange={this.squadNameChange}
           toggle={this.toggle}
           updateSquadRow={this.updateSquadRow}
