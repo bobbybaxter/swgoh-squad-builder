@@ -2,6 +2,13 @@
   display: block;
 }
 
+.characterPool {
+  display: flex;
+  flex-flow: row wrap;
+  overflow: scroll;
+  padding-bottom: 10px;
+}
+
 .modal {
   font-size: .9rem;
 
@@ -15,10 +22,14 @@
 }
 
 .noCharacterSelected {
-  width: 65px;
-  height: 65px;
+  width: 55px;
+  height: 55px;
   background-color: #bbb;
   border-radius: 50%;
+}
+
+.squadForm {
+  max-height: 277px;
 }
 
 .squadFormButtons {
@@ -26,19 +37,37 @@
   flex-direction: row;
 }
 
+.squadFormLeft {
+  overflow: hidden;
+}
+
 .squadFormLeftTop {
   display: flex;
   flex-direction: column;
 }
 
-.squadFormRightButtom {
+.squadFormLeftBottom {
   display: flex;
   flex-direction: column;
+}
+
+.squadFormRight {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.squadFormRightBottom {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0;
 }
 
 .squadFormRightTop {
   display: flex;
   flex-direction: row;
+  justify-content: space-evenly;
+  margin: 15px 0 0 0;
 }
 
 .squadFormToon {
@@ -47,8 +76,26 @@
   align-items: center;
 }
 
+.toonModalImg {
+  width: 55px;
+  border-radius: 50px;
+}
+
+.toonPoolCard {
+  display: flex;
+  max-width: 55px;
+  flex-flow: column wrap;
+  text-align: center;
+  align-items: center;
+}
+
+.toonPoolName {
+  font-size: .6rem;
+  font-weight: 400;
+}
+
 @media (min-width: 576px) {
   .modal-dialog {
-    max-width: none;
+    max-width: 650px;
   }
 }

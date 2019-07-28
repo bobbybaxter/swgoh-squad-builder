@@ -1,7 +1,6 @@
 import React from 'react';
 import firebase from 'firebase/app';
 import 'firebase/auth';
-// import { Link } from 'react-router-dom';
 
 import SquadRow from '../SquadRow/SquadRow';
 import SquadListModal from '../SquadListModal/SquadListModal';
@@ -32,6 +31,23 @@ class SquadList extends React.Component {
     squadForModal: [],
     squadList: {},
     squads: [],
+  }
+
+  addCharacterToSquad = (name) => {
+    const { newSquad } = this.state;
+    if (newSquad.character1 === '') {
+      this.squadCharacter1Change(name);
+    } else if (newSquad.character2 === '') {
+      this.squadCharacter2Change(name);
+    } else if (newSquad.character3 === '') {
+      this.squadCharacter3Change(name);
+    } else if (newSquad.character4 === '') {
+      this.squadCharacter4Change(name);
+    } else if (newSquad.character5 === '') {
+      this.squadCharacter5Change(name);
+    } else {
+      console.error('all full');
+    }
   }
 
   addNewSquadRow = () => {
@@ -73,22 +89,22 @@ class SquadList extends React.Component {
       .catch(err => console.error(err));
   }
 
-  formFieldStringState = (input, e) => {
+  formFieldStringState = (input, updatedName) => {
     const tempSquad = { ...this.state.newSquad };
-    if (e.target.value === 'Select Leader') {
+    if (updatedName === 'Select Leader') {
       tempSquad[input] = '';
       this.setState({ newSquad: tempSquad });
-    } else if (e.target.value === 'Select Character') {
+    } else if (updatedName === 'Select Character') {
       tempSquad[input] = '';
       this.setState({ newSquad: tempSquad });
     } else if (input === 'name') {
-      tempSquad[input] = e.target.value;
+      tempSquad[input] = updatedName;
       this.setState({ newSquad: tempSquad });
     } else if (input === 'description') {
-      tempSquad[input] = e.target.value;
+      tempSquad[input] = updatedName;
       this.setState({ newSquad: tempSquad });
     } else {
-      const characterName = e.target.value;
+      const characterName = updatedName;
       const character = this.state.characters.find(x => x.name === characterName);
       tempSquad[input] = character.name;
       this.setState({ newSquad: tempSquad });
@@ -98,20 +114,6 @@ class SquadList extends React.Component {
   getCharacters = () => {
     characterData.getAllCharacters()
       .then(res => this.setState({ characters: res }))
-      .catch(err => console.error(err));
-  }
-
-  getSquadCharacters = (squad) => {
-    const {
-      character1,
-      character2,
-      character3,
-      character4,
-      character5,
-    } = squad;
-    characterData
-      .getCharactersBySquad(character1, character2, character3, character4, character5)
-      .then(res => this.setState({ NewSquad: res }))
       .catch(err => console.error(err));
   }
 
@@ -128,7 +130,6 @@ class SquadList extends React.Component {
   }
 
   openSquadRowModal = () => {
-    console.error('clicked squad row modal');
     this.setState({ newSquad: defaultSquad });
     this.toggle();
   }
@@ -137,6 +138,22 @@ class SquadList extends React.Component {
     const action = 'update';
     this.toggle(action, squad);
   }
+
+  removeCharacterFromSquad = (e) => {
+    const { newSquad } = this.state;
+    const characterName = e.target.alt;
+    if (characterName === newSquad.character1) {
+      this.formFieldStringState('character1', 'Select Leader');
+    } else if (characterName === newSquad.character2) {
+      this.formFieldStringState('character2', 'Select Character');
+    } else if (characterName === newSquad.character3) {
+      this.formFieldStringState('character3', 'Select Character');
+    } else if (characterName === newSquad.character4) {
+      this.formFieldStringState('character4', 'Select Character');
+    } else if (characterName === newSquad.character5) {
+      this.formFieldStringState('character5', 'Select Character');
+    }
+  };
 
   squadCharacter1Change = e => this.formFieldStringState('character1', e);
 
@@ -155,7 +172,6 @@ class SquadList extends React.Component {
   toggle = (action, squad) => {
     if (action === 'update') {
       this.setState({ newSquad: squad });
-      this.getSquadCharacters(squad);
       this.setState(prevState => ({
         modal: !prevState.modal,
       }));
@@ -202,10 +218,12 @@ class SquadList extends React.Component {
     return (
       <div className="SquadList col-12 justify-content-center">
         <SquadListModal
+          addCharacterToSquad={this.addCharacterToSquad}
           addNewSquadRow={this.addNewSquadRow}
           characters={characters}
           modal={this.state.modal}
           newSquad={this.state.newSquad}
+          removeCharacterFromSquad={this.removeCharacterFromSquad}
           squadCharacter1Change={this.squadCharacter1Change}
           squadCharacter2Change={this.squadCharacter2Change}
           squadCharacter3Change={this.squadCharacter3Change}

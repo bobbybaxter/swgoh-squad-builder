@@ -6,9 +6,8 @@ class SquadMember extends React.Component {
     const image = `https://swgoh.gg${member.image}`;
     return (
       <div className="SquadMember">
-        <div className="d-flex flex-column">
-            <img className="toonImg" src={image} alt={member.name}/>
-            {/* <p className="">{member.name}</p> */}
+        <div className="d-flex flex-column mx-1">
+            <img className="toonImg" src={image} title={member.name} alt={member.name}/>
         </div>
       </div>
     );
