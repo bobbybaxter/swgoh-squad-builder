@@ -7,8 +7,7 @@ class SquadMember extends React.Component {
     return (
       <div className="SquadMember">
         <div className="d-flex flex-column">
-            <img className="toonImg" src={image} alt={member.name}/>
-            {/* <p className="">{member.name}</p> */}
+            <img className="toonImg" src={image} title={member.name} alt={member.name}/>
         </div>
       </div>
     );

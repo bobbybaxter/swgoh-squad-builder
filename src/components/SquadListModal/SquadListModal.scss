@@ -52,14 +52,22 @@
   flex-direction: column;
 }
 
-.squadFormRightButtom {
+.squadFormRight {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+}
+
+.squadFormRightBottom {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0;
 }
 
 .squadFormRightTop {
   display: flex;
   flex-direction: row;
+  margin: 15px 0 0 0;
 }
 
 .squadFormToon {

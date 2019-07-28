@@ -7,9 +7,7 @@ import {
   Input,
   Label,
   Modal,
-  // ModalHeader,
   ModalBody,
-  // ModalFooter,
 } from 'reactstrap';
 
 import './SquadListModal.scss';
@@ -45,6 +43,10 @@ class SquadListModal extends React.Component {
 
   characterPoolAction = e => this.props.addCharacterToSquad(e.target.alt);
 
+  characterRemovalEvent = e => this.props.removeCharacterFromSquad(e);
+
+  descriptionEvent = e => this.props.squadDescriptionChange(e.target.value);
+
   loadCharacterImages = (character, newListCharacter) => {
     if (character.name === '') {
       return <span className="noCharacterSelected"></span>;
@@ -52,7 +54,9 @@ class SquadListModal extends React.Component {
     if (character.name === newListCharacter) {
       const image = `https://swgoh.gg${character.image}`;
       return (
-        <img key={character.image} src={image} alt={character.name} className="toonImg" />
+        <div key={character.image} className="d-flex flex-column">
+          <img src={image} title={character.name} alt={character.name} onClick={this.characterRemovalEvent} className="toonImg" />
+        </div>
       );
     }
     return '';
@@ -60,8 +64,10 @@ class SquadListModal extends React.Component {
 
   loadCharacterPool = (character) => {
     const image = `https://swgoh.gg${character.image}`;
-    return <img key={character.image} src={image} alt={character.name} className="toonPoolImg mb-2" onClick={this.characterPoolAction} />;
+    return <img key={character.image} src={image} title={character.name} alt={character.name} className="toonPoolImg mb-2" onClick={this.characterPoolAction} />;
   }
+
+  // DEPRECIATED - USED FOR TESTING
 
   loadCharacterSelectors = (character) => {
     const characterId = character.base_id;
@@ -71,6 +77,8 @@ class SquadListModal extends React.Component {
       </option>
     );
   }
+
+  nameEvent = e => this.props.squadNameChange(e.target.value);
 
   render() {
     const {
@@ -102,7 +110,7 @@ class SquadListModal extends React.Component {
                   <Input
                     id="squadName"
                     name="squadNameInput"
-                    onChange={squadNameChange}
+                    onChange={this.nameEvent}
                     placeholder="Sith Empire"
                     type="text"
                     value={newSquad.name}
@@ -123,60 +131,86 @@ class SquadListModal extends React.Component {
                     <span className="noCharacterSelected">
                       {characters.map(x => this.loadCharacterImages(x, newSquad.character1))}
                     </span>
-                    <Input id="squadCharacter1Id" name="squadCharacter1IdInput" onChange={this.character1Event} type="select" value={newSquad.character1}>
-                    <option key="defaultCharacter1">Select Leader</option>
+                    {/* <Input id="squadCharacter1Id"
+                      name="squadCharacter1IdInput"
+                      onChange={this.character1Event}
+                      type="select"
+                      value={newSquad.character1}
+                    >
+                      <option key="defaultCharacter1">Select Leader</option>
                       {characters.map(this.loadCharacterSelectors)}
-                    </Input>
+                    </Input> */}
                   </FormGroup>
                   <FormGroup className="squadFormToon">
                     <Label for="squadCharacter2Id" hidden>Character 2</Label>
                     <span className="noCharacterSelected">
                       {characters.map(x => this.loadCharacterImages(x, newSquad.character2))}
                     </span>
-                    <Input id="squadCharacter2Id" name="squadCharacter2IdInput" onChange={this.character2Event} type="select" value={newSquad.character2}>
-                    <option key="defaultCharacter3">Select Character</option>
+                    {/* <Input id="squadCharacter2Id"
+                      name="squadCharacter2IdInput" o
+                      nChange={this.character2Event}
+                      type="select"
+                      value={newSquad.character2}
+                    >
+                      <option key="defaultCharacter3">Select Character</option>
                       {characters.map(this.loadCharacterSelectors)}
-                    </Input>
+                    </Input> */}
                   </FormGroup>
                   <FormGroup className="squadFormToon">
                     <Label for="squadCharacter3Id" hidden>Character 3</Label>
                     <span className="noCharacterSelected">
                       {characters.map(x => this.loadCharacterImages(x, newSquad.character3))}
                     </span>
-                    <Input id="squadCharacter3Id" name="squadCharacter3IdInput" onChange={this.character3Event} type="select" value={newSquad.character3}>
+                    {/* <Input id="squadCharacter3Id"
+                      name="squadCharacter3IdInput"
+                      onChange={this.character3Event}
+                      type="select"
+                      value={newSquad.character3}
+                    >
                       <option key="defaultCharacter3">Select Character</option>
                       {characters.map(this.loadCharacterSelectors)}
-                    </Input>
+                    </Input> */}
                   </FormGroup>
                   <FormGroup className="squadFormToon">
                     <Label for="squadCharacter4Id" hidden>Character 4</Label>
                     <span className="noCharacterSelected">
                       {characters.map(x => this.loadCharacterImages(x, newSquad.character4))}
                     </span>
-                    <Input id="squadCharacter4Id" name="squadCharacter4IdInput" onChange={this.character4Event} type="select" value={newSquad.character4}>
+                    {/* <Input id="squadCharacter4Id"
+                      name="squadCharacter4IdInput"
+                      onChange={this.character4Event}
+                      type="select"
+                      value={newSquad.character4}
+                    >
                       <option key="defaultCharacter3">Select Character</option>
                       {characters.map(this.loadCharacterSelectors)}
-                    </Input>
+                    </Input> */}
                   </FormGroup>
                   <FormGroup className="squadFormToon">
                     <Label for="squadCharacter5Id" hidden>Character 5</Label>
                     <span className="noCharacterSelected">
                       {characters.map(x => this.loadCharacterImages(x, newSquad.character5))}
                     </span>
-                    <Input id="squadCharacter5Id" name="squadCharacter5IdInput" onChange={this.character5Event} type="select" value={newSquad.character5}>
+                    {/* <Input id="squadCharacter5Id"
+                      name="squadCharacter5IdInput"
+                      onChange={this.character5Event}
+                      type="select"
+                      value={newSquad.character5}
+                    >
                       <option key="defaultCharacter3">Select Character</option>
                       {characters.map(this.loadCharacterSelectors)}
-                    </Input>
+                    </Input> */}
                   </FormGroup>
                 </FormGroup>
                 {/* Description Box */}
-                <FormGroup className="squadFormRightBottom">
+                <FormGroup className="squadFormRightBottom h-100">
                   <Label for="squadDescription">Description</Label>
                   <Input
                     id="squadDescription"
                     name="squadDescriptionInput"
-                    onChange={squadDescriptionChange}
+                    onChange={this.descriptionEvent}
                     placeholder="All zetas on Darth Revan required!"
+                    rows="3"
                     type="textarea"
                     value={newSquad.description}
                   />

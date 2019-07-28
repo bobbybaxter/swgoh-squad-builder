@@ -130,7 +130,6 @@ class SquadList extends React.Component {
   }
 
   openSquadRowModal = () => {
-    console.error('clicked squad row modal');
     this.setState({ newSquad: defaultSquad });
     this.toggle();
   }
@@ -139,6 +138,22 @@ class SquadList extends React.Component {
     const action = 'update';
     this.toggle(action, squad);
   }
+
+  removeCharacterFromSquad = (e) => {
+    const { newSquad } = this.state;
+    const characterName = e.target.alt;
+    if (characterName === newSquad.character1) {
+      this.formFieldStringState('character1', 'Select Leader');
+    } else if (characterName === newSquad.character2) {
+      this.formFieldStringState('character2', 'Select Character');
+    } else if (characterName === newSquad.character3) {
+      this.formFieldStringState('character3', 'Select Character');
+    } else if (characterName === newSquad.character4) {
+      this.formFieldStringState('character4', 'Select Character');
+    } else if (characterName === newSquad.character5) {
+      this.formFieldStringState('character5', 'Select Character');
+    }
+  };
 
   squadCharacter1Change = e => this.formFieldStringState('character1', e);
 
@@ -208,6 +223,7 @@ class SquadList extends React.Component {
           characters={characters}
           modal={this.state.modal}
           newSquad={this.state.newSquad}
+          removeCharacterFromSquad={this.removeCharacterFromSquad}
           squadCharacter1Change={this.squadCharacter1Change}
           squadCharacter2Change={this.squadCharacter2Change}
           squadCharacter3Change={this.squadCharacter3Change}
