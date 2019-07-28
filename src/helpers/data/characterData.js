@@ -45,19 +45,21 @@ const getCharactersBySquad = (
       tempSquad.push(newToon1, newToon2, newToon3, newToon4, newToon5);
       const newSquad = tempSquad.map((char) => {
         const newChar = char;
-        delete newChar.ability_classes;
-        delete newChar.activate_shard_count;
-        delete newChar.alignment;
-        delete newChar.categories;
-        delete newChar.combat_type;
-        delete newChar.description;
-        delete newChar.gear_levels;
-        delete newChar.pk;
-        delete newChar.power;
-        delete newChar.role;
-        delete newChar.ship;
-        delete newChar.ship_slot;
-        delete newChar.url;
+        if (newChar) {
+          delete newChar.ability_classes;
+          delete newChar.activate_shard_count;
+          delete newChar.alignment;
+          delete newChar.categories;
+          delete newChar.combat_type;
+          delete newChar.description;
+          delete newChar.gear_levels;
+          delete newChar.pk;
+          delete newChar.power;
+          delete newChar.role;
+          delete newChar.ship;
+          delete newChar.ship_slot;
+          delete newChar.url;
+        }
         return newChar;
       });
       resolve(newSquad);

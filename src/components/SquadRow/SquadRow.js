@@ -60,20 +60,25 @@ class SquadRow extends React.Component {
     const { squad } = this.props;
     let makeSquadMemberIcon;
     if (squadMembers[0] !== undefined) {
-      makeSquadMemberIcon = this.state.squadMembers.map(member => (
-        <SquadMember
-          key={member.base_id}
-          member={member}
-        />
-      ));
+      makeSquadMemberIcon = this.state.squadMembers.map((member) => {
+        if (member) {
+          return (
+            <SquadMember
+              key={member.base_id}
+              member={member}
+            />
+          );
+        }
+        return '';
+      });
     } else {
       makeSquadMemberIcon = null;
     }
 
     return (
       <div className="SquadRow mb-2 align-items-center">
-        <h4 className="col-2">{squad.name}</h4>
-        <div className="col-8 d-flex flex-row justify-content-around">
+        <h4 className="col-3">{squad.name}</h4>
+        <div className="col-7 d-flex flex-row justify-content-center">
           {makeSquadMemberIcon}
         </div>
         <div className="d-flex flex-column col-2">

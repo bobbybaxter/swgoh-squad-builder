@@ -6,7 +6,6 @@
   display: flex;
   flex-flow: row wrap;
   overflow: scroll;
-  background-color: lightyellow;
   padding-bottom: 10px;
 }
 
@@ -23,8 +22,8 @@
 }
 
 .noCharacterSelected {
-  width: 65px;
-  height: 65px;
+  width: 55px;
+  height: 55px;
   background-color: #bbb;
   border-radius: 50%;
 }
@@ -67,6 +66,7 @@
 .squadFormRightTop {
   display: flex;
   flex-direction: row;
+  justify-content: space-evenly;
   margin: 15px 0 0 0;
 }
 
@@ -76,9 +76,22 @@
   align-items: center;
 }
 
-.toonPoolImg {
+.toonModalImg {
   width: 55px;
   border-radius: 50px;
+}
+
+.toonPoolCard {
+  display: flex;
+  max-width: 55px;
+  flex-flow: column wrap;
+  text-align: center;
+  align-items: center;
+}
+
+.toonPoolName {
+  font-size: .6rem;
+  font-weight: 400;
 }
 
 @media (min-width: 576px) {
