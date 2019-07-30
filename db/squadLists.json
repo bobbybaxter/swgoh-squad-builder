@@ -1,59 +1,69 @@
 {
   "squadList1": {
+    "dateCreated": "1564529083093",
     "name": "squad list 1",
     "description": "My first squad",
     "squads": {},
     "uid": "U0XhVylq6zV7x9YaoKRkdP1FIns1"
   },
   "squadList2": {
+    "dateCreated": "1564529083094",
     "name": "squad list 2",
     "description": "My second squad",
     "squads": {},
     "uid": "12345"
   },
   "squadList3": {
+    "dateCreated": "1564529083095",
     "name": "squad list 3",
     "description": "My third squad",
     "squads": {},
     "uid": "U0XhVylq6zV7x9YaoKRkdP1FIns1"
   },
   "squadList4": {
+    "dateCreated": "1564529083096",
     "name": "squad list 4",
     "description": "My fourth squad",
     "squads": {},
     "uid": "12345"
   },
   "squadList5": {
+    "dateCreated": "1564529083097",
     "name": "squad list 5",
     "description": "My fifth squad",
     "squads": {},
     "uid": "U0XhVylq6zV7x9YaoKRkdP1FIns1"
   },
   "squadList6": {
+    "dateCreated": "1564529083098",
     "name": "squad list 6",
     "description": "My sixth squad",
     "squads": {},
     "uid": "12345"
   },
   "squadList7": {
+    "dateCreated": "1564529083099",
     "name": "squad list 7",
     "description": "My seventh squad",
     "squads": {},
     "uid": "U0XhVylq6zV7x9YaoKRkdP1FIns1"
   },
   "squadList8": {
+    "dateCreated": "1564529083100",
     "name": "squad list 8",
     "description": "My eighth squad",
     "squads": {},
     "uid": "12345"
   },
   "squadList9": {
+    "dateCreated": "1564529083101",
     "name": "squad list 9",
     "description": "My ninth squad",
     "squads": {},
     "uid": "U0XhVylq6zV7x9YaoKRkdP1FIns1"
   },
   "squadList10": {
+    "dateCreated": "1564529083102",
     "name": "squad list 10",
     "description": "My tenth squad",
     "squads": {},

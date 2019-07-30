@@ -11,7 +11,6 @@ import './SquadManager.scss';
 
 const defaultSquadList = {
   description: '',
-  id: '',
   name: '',
   uid: '',
 };
@@ -33,6 +32,7 @@ class SquadManager extends React.Component {
       tempSquadList.uid = firebase.auth().currentUser.uid;
       tempSquadList.name = newSquadList.name;
       tempSquadList.description = newSquadList.description;
+      tempSquadList.dateCreated = Date.now();
       squadListData.postSquadList(tempSquadList)
         .then(() => {
           this.toggle();
@@ -121,14 +121,16 @@ class SquadManager extends React.Component {
   }
 
   render() {
-    const makeSquadListCards = this.state.squadLists.map(squadList => (
+    const makeSquadListCards = this.state.squadLists
+      .sort((a, b) => ((a.dateCreated < b.dateCreated) ? 1 : -1))
+      .map(squadList => (
       <SquadListCard
         deleteSquadList={this.deleteSquadList}
         key={squadList.id}
         openUpdateSquadListModal={this.openUpdateSquadListModal}
         squadList={squadList}
       />
-    ));
+      ));
 
     return (
       <div className="SquadManager col-12 justify-content-center">
