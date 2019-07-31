@@ -12,6 +12,7 @@ import './SquadManager.scss';
 const defaultSquadList = {
   description: '',
   name: '',
+  id: '',
   uid: '',
 };
 
@@ -33,6 +34,7 @@ class SquadManager extends React.Component {
       tempSquadList.name = newSquadList.name;
       tempSquadList.description = newSquadList.description;
       tempSquadList.dateCreated = Date.now();
+      delete tempSquadList.id;
       squadListData.postSquadList(tempSquadList)
         .then(() => {
           this.toggle();

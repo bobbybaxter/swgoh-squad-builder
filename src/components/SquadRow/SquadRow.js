@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import SquadMember from '../SquadMember/SquadMember';
 
 import squadShape from '../../helpers/propz/squadShape';
-import characterData from '../../helpers/data/characterData';
 
 import './SquadRow.scss';
 
@@ -20,12 +19,12 @@ class SquadRow extends React.Component {
   }
 
   componentDidMount() {
-    this.getSquadCharacters();
+    this.setSquadMembers();
   }
 
   componentDidUpdate(nextProps) {
     if (nextProps.squad !== this.props.squad && nextProps.squad.character1) {
-      this.getSquadCharacters();
+      this.setSquadMembers();
     }
   }
 
@@ -35,18 +34,19 @@ class SquadRow extends React.Component {
     deleteSquad(squad.id);
   }
 
-  getSquadCharacters = () => {
-    const {
-      character1,
-      character2,
-      character3,
-      character4,
-      character5,
-    } = this.props.squad;
-    characterData
-      .getCharactersBySquad(character1, character2, character3, character4, character5)
-      .then(res => this.setState({ squadMembers: res }))
-      .catch(err => console.error(err));
+  setSquadMembers = () => {
+    const { squad } = this.props;
+    if (squad) {
+      const newSquad = [];
+      for (let i = 1; i < 6; i += 1) {
+        const newSquadMember = {};
+        newSquadMember.name = squad[`character${i}`];
+        newSquadMember.image = squad[`character${i}Image`];
+        newSquadMember.id = squad[`character${i}Id`];
+        newSquad.push(newSquadMember);
+      }
+      this.setState({ squadMembers: newSquad });
+    }
   }
 
   updateMe = (e) => {
@@ -60,11 +60,12 @@ class SquadRow extends React.Component {
     const { squad } = this.props;
     let makeSquadMemberIcon;
     if (squadMembers[0] !== undefined) {
-      makeSquadMemberIcon = this.state.squadMembers.map((member) => {
+      makeSquadMemberIcon = this.state.squadMembers.map((member, index) => {
         if (member) {
+          const memberId = `${squad.id}${member.id}${index}`;
           return (
             <SquadMember
-              key={member.base_id}
+              key={memberId}
               member={member}
             />
           );
@@ -77,8 +78,8 @@ class SquadRow extends React.Component {
 
     return (
       <div className="SquadRow mb-2 align-items-center">
-        <h4 className="col-3">{squad.name}</h4>
-        <div className="col-7 d-flex flex-row justify-content-center">
+        <h5 className="col-2">{squad.name}</h5>
+        <div className="col-8 d-flex flex-row justify-content-center">
           {makeSquadMemberIcon}
         </div>
         <div className="d-flex flex-column col-2">

@@ -1,3 +1,5 @@
+/* eslint-disable import/no-dynamic-require */
+/* eslint-disable global-require */
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -52,9 +54,9 @@ class SquadListModal extends React.Component {
       return <span className="noCharacterSelected"></span>;
     }
     if (character.name === newListCharacter) {
-      const image = `https://swgoh.gg${character.image}`;
+      const image = require(`../SquadList${character.image}`);
       return (
-        <div key={character.image} className="toonPoolCard">
+        <div key={image} className="toonPoolCard">
           <img
             src={image}
             title={character.name}
@@ -69,10 +71,11 @@ class SquadListModal extends React.Component {
     return '';
   }
 
-  loadCharacterPool = (character) => {
-    const image = `https://swgoh.gg${character.image}`;
+  loadCharacterPool = (x) => {
+    const character = x;
+    const image = require(`../SquadList${character.image}`);
     return (
-      <div className="toonPoolCard" key={character.image}>
+      <div className="toonPoolCard" key={image}>
         <img
           src={image}
           title={character.name}
@@ -87,14 +90,14 @@ class SquadListModal extends React.Component {
 
   // DEPRECIATED - USED FOR TESTING
 
-  loadCharacterSelectors = (character) => {
-    const characterId = character.base_id;
-    return (
-      <option key={characterId}>
-        {character.name}
-      </option>
-    );
-  }
+  // loadCharacterSelectors = (character) => {
+  //   const characterId = character.base_id;
+  //   return (
+  //     <option key={characterId}>
+  //       {character.name}
+  //     </option>
+  //   );
+  // }
 
   nameEvent = e => this.props.squadNameChange(e.target.value);
 
