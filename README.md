@@ -3,7 +3,7 @@ A squad planning and management app for the mobile game Star Wars: Galaxy of Her
 
 [Demo](https://swgoh-squad-builder.firebaseapp.com)
 
-## Screenshots -->
+## Screenshots
 ![image of Star Wars Squad Builder Site](https://raw.githubusercontent.com/bobbybaxter/swgoh-squad-builder/master/src/assets/screenshot1a.png)
 ![image of Star Wars Squad Builder Site](https://raw.githubusercontent.com/bobbybaxter/swgoh-squad-builder/master/src/assets/screenshot2a.png)
 
