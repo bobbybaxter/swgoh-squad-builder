@@ -5,9 +5,36 @@
 }
 
 .toonImg {
-  height: 65px;
-  width: 65px;
+  height: 55px;
+  width: 55px;
   border-radius: 50px;
   border: 2px solid #9B47E4;
 }
 
+h5 {
+  font-size: 1rem;
+  text-align: left;
+}
+
+.col-3 {
+  padding-left: 0;
+  padding-right: 50px;
+}
+
+@media (min-width: 640px){
+  h5 {
+    font-size: 1.25rem;
+    text-align: center;
+  }
+
+  .col-3 {
+    padding-left: initial;
+  }
+
+  .toonImg {
+    height: 65px;
+    width: 65px;
+    border-radius: 50px;
+    border: 2px solid #9B47E4;
+  }
+}
