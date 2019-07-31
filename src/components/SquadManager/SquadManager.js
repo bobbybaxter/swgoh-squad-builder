@@ -136,7 +136,7 @@ class SquadManager extends React.Component {
 
     return (
       <div className="SquadManager col-12 justify-content-center">
-        <h1>Squad Manager</h1>
+        <h1 className="my-4">Squad Manager</h1>
         <SquadManagerModal
           addNewSquadList={this.addNewSquadList}
           isNameDuplicate={this.state.isNameDuplicate}
@@ -148,10 +148,10 @@ class SquadManager extends React.Component {
           updateSquadList={this.updateSquadList}
         />
         <div className="d-flex flex-row flex-wrap justify-content-center">
-          <div className="SquadListCard col-4">
-            <div className="card">
-              <div className="card-body">
-                <button className="btn-sm btn-outline-primary" onClick={this.openSquadListModal}>New Squad List</button>
+          <div className="SquadListCard col-4 mb-4">
+            <div className="slCard card text-white bg-dark">
+              <div className="card-body newSquadListCard">
+                <button className="btn-lg btn-dark" onClick={this.openSquadListModal}>New Squad List</button>
               </div>
             </div>
           </div>

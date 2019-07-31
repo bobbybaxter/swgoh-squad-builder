@@ -25,7 +25,12 @@
   width: 55px;
   height: 55px;
   background-color: #bbb;
+  // border: 2px solid #bbb;
   border-radius: 50%;
+}
+
+.slmBody {
+  box-shadow: inset 4px 4px 15px rgba(218, 53, 53, 0.1), inset -4px -4px 15px rgba(255, 255, 255, 0.1);
 }
 
 .squadForm {
@@ -77,8 +82,10 @@
 }
 
 .toonModalImg {
+  height: 55px;
   width: 55px;
   border-radius: 50px;
+  border: 2px solid #9B47E4;
 }
 
 .toonPoolCard {
@@ -90,8 +97,8 @@
 }
 
 .toonPoolName {
-  font-size: .6rem;
-  font-weight: 400;
+  font-size: .7rem;
+  font-weight: 300;
 }
 
 @media (min-width: 576px) {

@@ -30,16 +30,16 @@ class SquadListCard extends React.Component {
     const toSquadList = `squad-list/${squadList.id}`;
 
     return (
-      <div className="SquadListCard col-4">
-        <div className="card">
+      <div className="SquadListCard col-4 mb-4">
+        <div className="slCard card text-white bg-dark">
           <div className="card-body">
             <h5 className="card-title">{squadList.name}</h5>
             <p className="card-text">{squadList.description}</p>
-            <Link className="btn-sm btn-outline-primary" to={toSquadList}>View</Link>
-            <div className="d-flex flex-row flex-wrap justify-content-center">
-              <button className="btn-sm btn-outline-primary" onClick={this.updateMe}>Edit</button>
-              <button className="btn-sm btn-outline-danger" onClick={this.deleteMe}>Delete</button>
-            </div>
+          </div>
+          <div className="buttonRow">
+            <button className="slCardBtn btn btn-dark" onClick={this.updateMe}>Rename</button>
+            <Link className="slCardBtn btn btn-dark" to={toSquadList}>Edit</Link>
+            <button className="slCardBtn btn btn-dark" onClick={this.deleteMe}>Delete</button>
           </div>
         </div>
       </div>

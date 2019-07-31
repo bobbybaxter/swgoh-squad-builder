@@ -78,13 +78,13 @@ class SquadRow extends React.Component {
 
     return (
       <div className="SquadRow mb-2 align-items-center">
-        <h5 className="col-2">{squad.name}</h5>
-        <div className="col-8 d-flex flex-row justify-content-center">
+        <h5 className="col-3">{squad.name}</h5>
+        <div className="col-6 d-flex flex-row justify-content-center">
           {makeSquadMemberIcon}
         </div>
-        <div className="d-flex flex-column col-2">
-          <button className="btn-sm btn-outline-primary" onClick={this.updateMe}>edit</button>
-          <button className="btn-sm btn-outline-danger" onClick={this.deleteMe}>x</button>
+        <div className="d-flex flex-column offset-1 col-2">
+          <button className="btn btn-dark mb-1" onClick={this.updateMe}>edit</button>
+          <button className="btn btn-danger" onClick={this.deleteMe}>x</button>
         </div>
       </div>
     );

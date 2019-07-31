@@ -122,7 +122,7 @@ class SquadListModal extends React.Component {
       if (newSquad !== undefined) {
         // EDIT SQUAD MODAL
         squadListModal = <Modal isOpen={modal} toggle={toggle}>
-          <ModalBody>
+          <ModalBody className="bg-dark text-white slmBody">
             <Form className="squadForm d-flex flex-row">
               <div className="squadFormLeft col-5">
                 {/* Team Name */}
@@ -237,7 +237,7 @@ class SquadListModal extends React.Component {
                   />
                 </FormGroup>
                 <div className="d-flex flex-row justify-content-between">
-                  <Button color="secondary" onClick={toggle} className="col-3">Cancel</Button>
+                  <Button color="danger" onClick={toggle} className="col-3">Cancel</Button>
                   <Button color="primary" onClick={updateSquadRow} className="col-8">Save squad</Button>{' '}
                 </div>
               </div>
@@ -248,7 +248,7 @@ class SquadListModal extends React.Component {
     } else {
       // NEW SQUAD MODAL
       squadListModal = <Modal isOpen={modal} toggle={toggle}>
-          <ModalBody>
+          <ModalBody className="bg-dark text-white slmBody">
             <Form className="squadForm d-flex flex-row">
               <div className="squadFormLeft col-5">
                 {/* Team Name */}
@@ -344,7 +344,7 @@ class SquadListModal extends React.Component {
                 </FormGroup>
               </FormGroup>
               {/* Description Box */}
-              <FormGroup className="squadFormRightBottom h-100">
+              <FormGroup className="squadFormRightBottom">
                 <Label for="squadDescription">Description</Label>
                 <Input
                   id="squadDescription"
@@ -356,7 +356,7 @@ class SquadListModal extends React.Component {
                 />
               </FormGroup>
               <div className="d-flex flex-row justify-content-between">
-                <Button color="secondary" onClick={toggle} className="col-3">Cancel</Button>
+                <Button color="danger" onClick={toggle} className="col-3">Cancel</Button>
                 <Button color="primary" onClick={addNewSquadRow} className="col-8">Add new squad</Button>{' '}
               </div>
             </div>

@@ -1,8 +1,13 @@
 .SquadRow {
   display: flex;
+  // background: linear-gradient(180deg, rgba(27, 78, 125, 0) 0%, #1B4E7D 55.73%);
+  box-shadow: inset 4px 4px 15px rgba(218, 53, 53, 0.1), inset -4px -4px 15px rgba(255, 255, 255, 0.1);
 }
 
 .toonImg {
+  height: 65px;
   width: 65px;
   border-radius: 50px;
+  border: 2px solid #9B47E4;
 }
+
