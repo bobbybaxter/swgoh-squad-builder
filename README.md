@@ -3,8 +3,9 @@ A squad planning and management app for the mobile game Star Wars: Galaxy of Her
 
 [Demo](https://swgoh-squad-builder.firebaseapp.com)
 
-<!-- ## Screenshots -->
-<!-- ![image of catch of the day site](https://raw.githubusercontent.com/bobbybaxter/react-hoarder/master/src/assets/screenshot.png) -->
+## Screenshots -->
+[image of Star Wars Squad Builder Site](https://raw.githubusercontent.com/bobbybaxter/swgoh-squad-builder/master/src/assets/screenshot1.png)
+[image of Star Wars Squad Builder Site](https://raw.githubusercontent.com/bobbybaxter/swgoh-squad-builder/master/src/assets/screenshot2.png)
 
 ## Installation Instructions
 - Clone down this repo

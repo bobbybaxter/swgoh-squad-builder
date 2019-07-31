@@ -1,3 +1,23 @@
 .SquadListCard {
-  display: block;
+  display: grid;
+}
+
+.bg-black {
+  background-color: black;
+}
+
+.buttonRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  border-top: 1px solid black
+}
+
+.slCard {
+  box-shadow: inset 4px 4px 15px rgba(255, 255, 255, 0.1), inset -4px -4px 15px rgba(255, 255, 255, 0.1);
+}
+
+.slCardBtn {
+  width: 100%;
+  border-radius: 0;
 }

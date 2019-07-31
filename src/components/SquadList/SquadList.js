@@ -129,7 +129,6 @@ class SquadList extends React.Component {
 
   formFieldStringState = (input, updatedName) => {
     const tempSquad = { ...this.state.newSquad };
-    console.error(tempSquad);
     if (updatedName === 'Select Leader') {
       tempSquad[input] = '';
       tempSquad[`${input}Id`] = '';
@@ -149,7 +148,6 @@ class SquadList extends React.Component {
     } else {
       const characterName = updatedName;
       const character = this.state.characters.find(x => x.name === characterName);
-      console.error(character);
       tempSquad[input] = character.name;
       tempSquad[`${input}Id`] = character.base_id;
       tempSquad[`${input}Image`] = character.image;
@@ -280,13 +278,13 @@ class SquadList extends React.Component {
           toggle={this.toggle}
           updateSquadRow={this.updateSquadRow}
         />
-        <h1>{squadList.name}</h1>
+        <h1 className="my-4">{squadList.name}</h1>
         <div className="d-flex flex-column">
           {buildSquadRows}
           <div className="SquadRow">
-            <div className="card col-12">
-              <div className="card-body d-flex flex-row justify-content-center">
-                <button className="btn-sm btn-outline-primary" onClick={this.openSquadRowModal}>New Squad</button>
+            <div className="slCard card text-white bg-black col-12">
+              <div className="card-body newSquadListCard">
+                <button className="btn-lg btn-dark" onClick={this.openSquadRowModal}>New Squad</button>
               </div>
             </div>
           </div>

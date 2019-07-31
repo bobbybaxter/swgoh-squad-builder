@@ -1,4 +1,8 @@
 .App {
   text-align: center;
+  background-color: black;
+  // background: linear-gradient(to bottom, rgba(0, 0, 0, 1) 75%, #1B4E7D 100%); 
+  box-shadow: inset 0px 0px 10px rgba(255, 255, 255, 0.1), inset 0px 0px -10px rgba(255, 255, 255, 0.1);
+  color: whitesmoke;
 }
 
