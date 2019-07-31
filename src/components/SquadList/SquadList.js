@@ -1,3 +1,5 @@
+/* eslint-disable import/no-dynamic-require */
+/* eslint-disable global-require */
 import React from 'react';
 import firebase from 'firebase/app';
 import 'firebase/auth';
@@ -5,18 +7,26 @@ import 'firebase/auth';
 import SquadRow from '../SquadRow/SquadRow';
 import SquadListModal from '../SquadListModal/SquadListModal';
 
-import characterData from '../../helpers/data/characterData';
+import characterData from '../../helpers/data/characters.json';
 import squadData from '../../helpers/data/squadData';
 import squadListData from '../../helpers/data/squadListData';
 
-// import squadListShape from '../../helpers/propz/squadListShape';
-
 const defaultSquad = {
   character1: '',
+  character1Id: '',
+  character1Image: '',
   character2: '',
+  character2Id: '',
+  character2Image: '',
   character3: '',
+  character3Id: '',
+  character3Image: '',
   character4: '',
+  character4Id: '',
+  character4Image: '',
   character5: '',
+  character5Id: '',
+  character5Image: '',
   description: '',
   id: '',
   name: '',
@@ -72,11 +82,39 @@ class SquadList extends React.Component {
       .catch(err => console.error('didnt post squadlist', err));
   }
 
+  buildSquad = (squad) => {
+    const { characters } = this.state;
+    const builtSquad = { ...squad };
+    characters.map((character) => {
+      const image = require(`.${character.image}`);
+      if (character.name === squad.character1) {
+        builtSquad.character1Id = character.base_id;
+        builtSquad.character1Image = image;
+      } else if (character.name === squad.character2) {
+        builtSquad.character2Id = character.base_id;
+        builtSquad.character2Image = image;
+      } else if (character.name === squad.character3) {
+        builtSquad.character3Id = character.base_id;
+        builtSquad.character3Image = image;
+      } else if (character.name === squad.character4) {
+        builtSquad.character4Id = character.base_id;
+        builtSquad.character4Image = image;
+      } else if (character.name === squad.character5) {
+        builtSquad.character5Id = character.base_id;
+        builtSquad.character5Image = image;
+      }
+      return '';
+    });
+    return builtSquad;
+  }
+
   componentDidMount() {
     const squadListId = this.props.match.params.id;
-    this.getSquadList(squadListId);
-    this.getSquadsBySquadList(squadListId);
-    this.getCharacters();
+    if (characterData) {
+      this.getSquadList(squadListId);
+      this.getSquadsBySquadList(squadListId);
+      this.setState({ characters: characterData.data });
+    }
   }
 
   deleteSquad = (squadId) => {
@@ -91,11 +129,16 @@ class SquadList extends React.Component {
 
   formFieldStringState = (input, updatedName) => {
     const tempSquad = { ...this.state.newSquad };
+    console.error(tempSquad);
     if (updatedName === 'Select Leader') {
       tempSquad[input] = '';
+      tempSquad[`${input}Id`] = '';
+      tempSquad[`${input}Image`] = '';
       this.setState({ newSquad: tempSquad });
     } else if (updatedName === 'Select Character') {
       tempSquad[input] = '';
+      tempSquad[`${input}Id`] = '';
+      tempSquad[`${input}Image`] = '';
       this.setState({ newSquad: tempSquad });
     } else if (input === 'name') {
       tempSquad[input] = updatedName;
@@ -106,15 +149,12 @@ class SquadList extends React.Component {
     } else {
       const characterName = updatedName;
       const character = this.state.characters.find(x => x.name === characterName);
+      console.error(character);
       tempSquad[input] = character.name;
+      tempSquad[`${input}Id`] = character.base_id;
+      tempSquad[`${input}Image`] = character.image;
       this.setState({ newSquad: tempSquad });
     }
-  }
-
-  getCharacters = () => {
-    characterData.getAllCharacters()
-      .then(res => this.setState({ characters: res }))
-      .catch(err => console.error(err));
   }
 
   getSquadList = (squadListId) => {
@@ -208,12 +248,17 @@ class SquadList extends React.Component {
 
   render() {
     const { characters, squadList, squads } = this.state;
-    const squadComponents = squads.map(squad => <SquadRow
+    const buildSquadRows = squads.map((x) => {
+      const squad = [];
+      const builtSquad = this.buildSquad(x);
+      squad.push(builtSquad);
+      return <SquadRow
           deleteSquad={this.deleteSquad}
-          key={squad.id}
+          key={squad[0].id}
           openUpdateSquadRowModal={this.openUpdateSquadRowModal}
-          squad={squad}
-        />);
+          squad={squad[0]}
+        />;
+    });
 
     return (
       <div className="SquadList col-12 justify-content-center">
@@ -237,7 +282,7 @@ class SquadList extends React.Component {
         />
         <h1>{squadList.name}</h1>
         <div className="d-flex flex-column">
-          {squadComponents}
+          {buildSquadRows}
           <div className="SquadRow">
             <div className="card col-12">
               <div className="card-body d-flex flex-row justify-content-center">
