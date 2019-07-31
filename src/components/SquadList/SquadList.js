@@ -282,9 +282,9 @@ class SquadList extends React.Component {
         <div className="d-flex flex-column">
           {buildSquadRows}
           <div className="SquadRow">
-            <div className="slCard card text-white bg-black col-12">
+            <div className="slCard card col-12 text-white bg-black">
               <div className="card-body newSquadListCard">
-                <button className="btn-lg btn-dark" onClick={this.openSquadRowModal}>New Squad</button>
+                <button className="btn-lg btn btn-dark" onClick={this.openSquadRowModal}>New Squad</button>
               </div>
             </div>
           </div>

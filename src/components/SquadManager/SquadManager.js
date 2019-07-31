@@ -135,7 +135,7 @@ class SquadManager extends React.Component {
       ));
 
     return (
-      <div className="SquadManager col-12 justify-content-center">
+      <div className="SquadManager justify-content-center">
         <h1 className="my-4">Squad Manager</h1>
         <SquadManagerModal
           addNewSquadList={this.addNewSquadList}
