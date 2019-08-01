@@ -237,7 +237,7 @@ class SquadListModal extends React.Component {
                   />
                 </FormGroup>
                 <div className="d-flex flex-row justify-content-between">
-                  <Button color="danger" onClick={toggle} className="col-3">Cancel</Button>
+                  <Button color="danger" onClick={toggle}>Cancel</Button>
                   <Button color="primary" onClick={updateSquadRow} className="col-8">Save squad</Button>{' '}
                 </div>
               </div>
@@ -356,7 +356,7 @@ class SquadListModal extends React.Component {
                 />
               </FormGroup>
               <div className="d-flex flex-row justify-content-between">
-                <Button color="danger" onClick={toggle} className="col-3">Cancel</Button>
+                <Button color="danger" onClick={toggle}>Cancel</Button>
                 <Button color="primary" onClick={addNewSquadRow} className="col-8">Add new squad</Button>{' '}
               </div>
             </div>
