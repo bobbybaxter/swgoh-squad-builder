@@ -62,7 +62,7 @@ class App extends React.Component {
       <div className="App">
         <BrowserRouter>
           <React.Fragment>
-            <MyNavbar authed={authed}/>
+            {(authed) ? <MyNavbar authed={authed}/> : ''}
             <div>
               {/* <div className="row"> */}
                 <Switch>

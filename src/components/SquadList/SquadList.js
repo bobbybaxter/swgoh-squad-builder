@@ -41,6 +41,7 @@ class SquadList extends React.Component {
     squadForModal: [],
     squadList: {},
     squads: [],
+    isEditMode: true,
   }
 
   addCharacterToSquad = (name) => {
@@ -167,6 +168,23 @@ class SquadList extends React.Component {
       .catch(err => console.error('squads didnt load', err));
   }
 
+  moveRowDown = (squadId) => {
+    const { squads } = this.state;
+    console.error(squads);
+    const index = squads.map(x => x.id).indexOf(squadId);
+    const tmp = squads[index];
+    squads[index] = squads[index + 1];
+    squads[index + 1] = tmp;
+    this.props.updateSquadList();
+    // CAN'T SEEM TO FIGURE OUT HOW TO UPDATE SQUADLISTS BASED ON NEWLY CHANGED STATE
+    // console.error(squads);
+  }
+
+  moveRowUp = (squadId) => {
+    const index = this.state.squads.map(x => x.id).indexOf(squadId);
+    console.error(index);
+  }
+
   openSquadRowModal = () => {
     this.setState({ newSquad: defaultSquad });
     this.toggle();
@@ -191,7 +209,19 @@ class SquadList extends React.Component {
     } else if (characterName === newSquad.character5) {
       this.formFieldStringState('character5', 'Select Character');
     }
-  };
+  }
+
+  reorderSquads = () => {
+    if (this.state.isEditMode) {
+      this.setState(prevState => ({
+        isEditMode: !prevState.isEditMode,
+      }));
+    } else {
+      this.setState(prevState => ({
+        isEditMode: !prevState.isEditMode,
+      }));
+    }
+  }
 
   squadCharacter1Change = e => this.formFieldStringState('character1', e);
 
@@ -245,14 +275,22 @@ class SquadList extends React.Component {
   }
 
   render() {
-    const { characters, squadList, squads } = this.state;
+    const {
+      characters,
+      squadList,
+      squads,
+      isEditMode,
+    } = this.state;
     const buildSquadRows = squads.map((x) => {
       const squad = [];
       const builtSquad = this.buildSquad(x);
       squad.push(builtSquad);
       return <SquadRow
           deleteSquad={this.deleteSquad}
+          isEditMode={isEditMode}
           key={squad[0].id}
+          moveRowDown={this.moveRowDown}
+          moveRowUp={this.moveRowUp}
           openUpdateSquadRowModal={this.openUpdateSquadRowModal}
           squad={squad[0]}
         />;
@@ -278,7 +316,13 @@ class SquadList extends React.Component {
           toggle={this.toggle}
           updateSquadRow={this.updateSquadRow}
         />
-        <h1 className="my-4">{squadList.name}</h1>
+        <div className="d-flex flex-row justify-content-center align-items-center">
+          <div className="col-3"></div>
+          <h1 className="my-4 col-6">{squadList.name}</h1>
+          <button onClick={this.reorderSquads} className="btn btn-primary h-25 offset-1 col-2 justify-content-center align-items-center">
+            {this.state.isEditMode ? 'Reorder' : 'Edit'}
+          </button>
+        </div>
         <div className="d-flex flex-column">
           {buildSquadRows}
           <div className="SquadRow">
