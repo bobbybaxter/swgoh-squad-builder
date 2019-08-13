@@ -30,6 +30,7 @@ const defaultSquad = {
   description: '',
   id: '',
   name: '',
+  positionNum: '',
   squadListId: '',
 };
 
@@ -62,9 +63,10 @@ class SquadList extends React.Component {
   }
 
   addNewSquadRow = () => {
-    const { newSquad } = this.state;
+    const { newSquad, squads } = this.state;
     const squadListId = this.props.match.params.id;
     const tempSquad = newSquad;
+    const position = squads.length > 0 ? squads[squads.length - 1].positionNum + 1 : 1;
     tempSquad.character1 = newSquad.character1;
     tempSquad.character2 = newSquad.character2;
     tempSquad.character3 = newSquad.character3;
@@ -73,6 +75,7 @@ class SquadList extends React.Component {
     tempSquad.description = newSquad.description;
     tempSquad.squadListId = squadListId;
     tempSquad.name = newSquad.name;
+    tempSquad.positionNum = position;
     tempSquad.uid = firebase.auth().currentUser.uid;
     squadData.postSquad(tempSquad)
       .then(() => {
@@ -170,19 +173,28 @@ class SquadList extends React.Component {
 
   moveRowDown = (squadId) => {
     const { squads } = this.state;
-    console.error(squads);
     const index = squads.map(x => x.id).indexOf(squadId);
-    const tmp = squads[index];
-    squads[index] = squads[index + 1];
-    squads[index + 1] = tmp;
-    this.props.updateSquadList();
-    // CAN'T SEEM TO FIGURE OUT HOW TO UPDATE SQUADLISTS BASED ON NEWLY CHANGED STATE
-    // console.error(squads);
+    const currentPosition = squads[index].positionNum;
+    const nextPosition = squads[index + 1].positionNum;
+    squads[index].positionNum = nextPosition;
+    squads[index + 1].positionNum = currentPosition;
+    squadData.putSquad(squads[index], squadId)
+      .then(() => { squadData.putSquad(squads[index + 1], squads[index + 1].id); })
+      .then(() => { this.setState({ squads }); })
+      .catch(err => console.error('didnt put squad', err));
   }
 
   moveRowUp = (squadId) => {
-    const index = this.state.squads.map(x => x.id).indexOf(squadId);
-    console.error(index);
+    const { squads } = this.state;
+    const index = squads.map(x => x.id).indexOf(squadId);
+    const currentPosition = squads[index].positionNum;
+    const nextPosition = squads[index - 1].positionNum;
+    squads[index].positionNum = nextPosition;
+    squads[index - 1].positionNum = currentPosition;
+    squadData.putSquad(squads[index], squadId)
+      .then(() => { squadData.putSquad(squads[index - 1], squads[index - 1].id); })
+      .then(() => { this.setState({ squads }); })
+      .catch(err => console.error('didnt put squad', err));
   }
 
   openSquadRowModal = () => {
@@ -281,20 +293,23 @@ class SquadList extends React.Component {
       squads,
       isEditMode,
     } = this.state;
+    squads.sort((a, b) => a.positionNum - b.positionNum);
     const buildSquadRows = squads.map((x) => {
       const squad = [];
       const builtSquad = this.buildSquad(x);
       squad.push(builtSquad);
+      // console.error(x.character1, x.positionNum);
       return <SquadRow
-          deleteSquad={this.deleteSquad}
-          isEditMode={isEditMode}
-          key={squad[0].id}
-          moveRowDown={this.moveRowDown}
-          moveRowUp={this.moveRowUp}
-          openUpdateSquadRowModal={this.openUpdateSquadRowModal}
-          squad={squad[0]}
-        />;
+      deleteSquad={this.deleteSquad}
+      isEditMode={isEditMode}
+      key={squad[0].id}
+      moveRowDown={this.moveRowDown}
+      moveRowUp={this.moveRowUp}
+      openUpdateSquadRowModal={this.openUpdateSquadRowModal}
+      squad={squad[0]}
+      />;
     });
+    // console.error('---');
 
     return (
       <div className="SquadList col-12 justify-content-center">
@@ -319,9 +334,11 @@ class SquadList extends React.Component {
         <div className="d-flex flex-row justify-content-center align-items-center">
           <div className="col-3"></div>
           <h1 className="my-4 col-6">{squadList.name}</h1>
-          <button onClick={this.reorderSquads} className="btn btn-primary h-25 offset-1 col-2 justify-content-center align-items-center">
-            {this.state.isEditMode ? 'Reorder' : 'Edit'}
-          </button>
+          <div className="d-flex flex-column offset-1 col-2">
+            <button onClick={this.reorderSquads} className="btn btn-primary">
+              {this.state.isEditMode ? 'Reorder' : 'Edit'}
+            </button>
+          </div>
         </div>
         <div className="d-flex flex-column">
           {buildSquadRows}

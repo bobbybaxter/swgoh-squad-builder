@@ -34,7 +34,7 @@ class SquadListCard extends React.Component {
         <div className="slCard card text-white bg-dark">
           <div className="card-body">
             <h5 className="card-title">{squadList.name}</h5>
-            <p className="card-text">{squadList.description}</p>
+            {/* <p className="card-text">{squadList.description}</p> */}
           </div>
           <div className="buttonRow">
             <button className="slCardBtn btn btn-dark" onClick={this.updateMe}>Rename</button>
