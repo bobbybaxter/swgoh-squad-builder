@@ -30,6 +30,7 @@ const defaultSquad = {
   description: '',
   id: '',
   name: '',
+  positionNum: '',
   squadListId: '',
 };
 
@@ -41,6 +42,7 @@ class SquadList extends React.Component {
     squadForModal: [],
     squadList: {},
     squads: [],
+    isEditMode: true,
   }
 
   addCharacterToSquad = (name) => {
@@ -61,9 +63,10 @@ class SquadList extends React.Component {
   }
 
   addNewSquadRow = () => {
-    const { newSquad } = this.state;
+    const { newSquad, squads } = this.state;
     const squadListId = this.props.match.params.id;
     const tempSquad = newSquad;
+    const position = squads.length > 0 ? squads[squads.length - 1].positionNum + 1 : 1;
     tempSquad.character1 = newSquad.character1;
     tempSquad.character2 = newSquad.character2;
     tempSquad.character3 = newSquad.character3;
@@ -72,6 +75,7 @@ class SquadList extends React.Component {
     tempSquad.description = newSquad.description;
     tempSquad.squadListId = squadListId;
     tempSquad.name = newSquad.name;
+    tempSquad.positionNum = position;
     tempSquad.uid = firebase.auth().currentUser.uid;
     squadData.postSquad(tempSquad)
       .then(() => {
@@ -167,6 +171,32 @@ class SquadList extends React.Component {
       .catch(err => console.error('squads didnt load', err));
   }
 
+  moveRowDown = (squadId) => {
+    const { squads } = this.state;
+    const index = squads.map(x => x.id).indexOf(squadId);
+    const currentPosition = squads[index].positionNum;
+    const nextPosition = squads[index + 1].positionNum;
+    squads[index].positionNum = nextPosition;
+    squads[index + 1].positionNum = currentPosition;
+    squadData.putSquad(squads[index], squadId)
+      .then(() => { squadData.putSquad(squads[index + 1], squads[index + 1].id); })
+      .then(() => { this.setState({ squads }); })
+      .catch(err => console.error('didnt put squad', err));
+  }
+
+  moveRowUp = (squadId) => {
+    const { squads } = this.state;
+    const index = squads.map(x => x.id).indexOf(squadId);
+    const currentPosition = squads[index].positionNum;
+    const nextPosition = squads[index - 1].positionNum;
+    squads[index].positionNum = nextPosition;
+    squads[index - 1].positionNum = currentPosition;
+    squadData.putSquad(squads[index], squadId)
+      .then(() => { squadData.putSquad(squads[index - 1], squads[index - 1].id); })
+      .then(() => { this.setState({ squads }); })
+      .catch(err => console.error('didnt put squad', err));
+  }
+
   openSquadRowModal = () => {
     this.setState({ newSquad: defaultSquad });
     this.toggle();
@@ -191,7 +221,19 @@ class SquadList extends React.Component {
     } else if (characterName === newSquad.character5) {
       this.formFieldStringState('character5', 'Select Character');
     }
-  };
+  }
+
+  reorderSquads = () => {
+    if (this.state.isEditMode) {
+      this.setState(prevState => ({
+        isEditMode: !prevState.isEditMode,
+      }));
+    } else {
+      this.setState(prevState => ({
+        isEditMode: !prevState.isEditMode,
+      }));
+    }
+  }
 
   squadCharacter1Change = e => this.formFieldStringState('character1', e);
 
@@ -245,18 +287,29 @@ class SquadList extends React.Component {
   }
 
   render() {
-    const { characters, squadList, squads } = this.state;
+    const {
+      characters,
+      squadList,
+      squads,
+      isEditMode,
+    } = this.state;
+    squads.sort((a, b) => a.positionNum - b.positionNum);
     const buildSquadRows = squads.map((x) => {
       const squad = [];
       const builtSquad = this.buildSquad(x);
       squad.push(builtSquad);
+      // console.error(x.character1, x.positionNum);
       return <SquadRow
-          deleteSquad={this.deleteSquad}
-          key={squad[0].id}
-          openUpdateSquadRowModal={this.openUpdateSquadRowModal}
-          squad={squad[0]}
-        />;
+      deleteSquad={this.deleteSquad}
+      isEditMode={isEditMode}
+      key={squad[0].id}
+      moveRowDown={this.moveRowDown}
+      moveRowUp={this.moveRowUp}
+      openUpdateSquadRowModal={this.openUpdateSquadRowModal}
+      squad={squad[0]}
+      />;
     });
+    // console.error('---');
 
     return (
       <div className="SquadList col-12 justify-content-center">
@@ -278,7 +331,15 @@ class SquadList extends React.Component {
           toggle={this.toggle}
           updateSquadRow={this.updateSquadRow}
         />
-        <h1 className="my-4">{squadList.name}</h1>
+        <div className="d-flex flex-row justify-content-center align-items-center">
+          <div className="col-3"></div>
+          <h1 className="my-4 col-6">{squadList.name}</h1>
+          <div className="d-flex flex-column offset-1 col-2">
+            <button onClick={this.reorderSquads} className="btn btn-primary">
+              {this.state.isEditMode ? 'Reorder' : 'Edit'}
+            </button>
+          </div>
+        </div>
         <div className="d-flex flex-column">
           {buildSquadRows}
           <div className="SquadRow">
