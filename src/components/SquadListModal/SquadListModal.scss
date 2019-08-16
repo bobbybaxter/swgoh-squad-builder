@@ -22,8 +22,8 @@
 }
 
 .noCharacterSelected {
-  width: 55px;
-  height: 55px;
+  width: 40px;
+  height: 40px;
   background-color: #bbb;
   // border: 2px solid #bbb;
   border-radius: 50%;
@@ -82,15 +82,15 @@
 }
 
 .toonModalImg {
-  height: 55px;
-  width: 55px;
+  height: 40px;
+  width: 40px;
   border-radius: 50px;
   border: 2px solid #9B47E4;
 }
 
 .toonPoolCard {
   display: flex;
-  max-width: 55px;
+  max-width: 40px;
   flex-flow: column wrap;
   text-align: center;
   align-items: center;
@@ -104,5 +104,53 @@
 @media (min-width: 576px) {
   .modal-dialog {
     max-width: 650px;
+  }
+}
+
+@media only screen and (min-width: 768px){
+  .noCharacterSelected {
+    width: 45px;
+    height: 45px;
+  }
+
+  .toonModalImg {
+    height: 45px;
+    width: 45px;
+  }
+
+  .toonPoolCard {
+    max-width: 45px;
+  }
+}
+
+@media only screen and (min-width:992px) {
+  .noCharacterSelected {
+    width: 55px;
+    height: 55px;
+  }
+
+  .toonModalImg {
+    height: 55px;
+    width: 55px;
+  }
+
+  .toonPoolCard {
+    max-width: 55px;
+  }
+}
+
+@media only screen and (min-width:1200px) {
+  .noCharacterSelected {
+    width: 65px;
+    height: 65px;
+  }
+
+  .toonModalImg {
+    height: 65px;
+    width: 65px;
+  }
+
+  .toonPoolCard {
+    max-width: 65px;
   }
 }

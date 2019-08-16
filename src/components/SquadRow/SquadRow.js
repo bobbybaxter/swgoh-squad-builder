@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import SquadMember from '../SquadMember/SquadMember';
 
@@ -65,7 +66,23 @@ class SquadRow extends React.Component {
 
   render() {
     const { squadMembers } = this.state;
-    const { isEditMode, squad } = this.props;
+    const { isEditMode, squad, position } = this.props;
+    let positionButtons;
+    if (position === 'first') {
+      positionButtons = (<div className="squadRowButtons">
+            <span className="col-6"></span>
+            <button className="btn-sm btn-secondary col-6" onClick={this.moveDown}><FontAwesomeIcon icon="arrow-down" /></button>
+      </div>);
+    } else if (position === 'last') {
+      positionButtons = (<div className="squadRowButtons">
+            <button className="btn-sm btn-dark col-6" onClick={this.moveUp}><FontAwesomeIcon icon="arrow-up" /></button>
+      </div>);
+    } else {
+      positionButtons = (<div className="squadRowButtons">
+            <button className="btn-sm btn-dark col-6" onClick={this.moveUp}><FontAwesomeIcon icon="arrow-up" /></button>
+            <button className="btn-sm btn-secondary col-6" onClick={this.moveDown}><FontAwesomeIcon icon="arrow-down" /></button>
+      </div>);
+    }
     let makeSquadMemberIcon;
     if (squadMembers[0] !== undefined) {
       makeSquadMemberIcon = this.state.squadMembers.map((member, index) => {
@@ -85,21 +102,22 @@ class SquadRow extends React.Component {
     }
 
     return (
-      <div className="SquadRow mb-2 align-items-center">
-        <h5 className="col-3">{squad.name}</h5>
-        <div className="col-6 d-flex flex-row justify-content-center">
-          {makeSquadMemberIcon}
+      <div className="SquadRow mb-2">
+        <div className="squadRowLeftColumn">
+          <h5 className="squadRowTitle">{squad.name}</h5>
         </div>
-        {isEditMode
-          ? (<div className="d-flex flex-column offset-1 col-2">
-              <button className="btn btn-dark mb-1" onClick={this.updateMe}>edit</button>
-              <button className="btn btn-danger" onClick={this.deleteMe}>x</button>
-            </div>)
-          : (<div className="d-flex flex-column offset-1 col-2">
-              <button className="btn btn-dark mb-1" onClick={this.moveUp}>up</button>
-              <button className="btn btn-secondary" onClick={this.moveDown}>down</button>
-            </div>)
-        }
+        <div className="squadRowRightColumn">
+          <div className="squadRowImages">
+            {makeSquadMemberIcon}
+          </div>
+          {isEditMode
+            ? (<div className="squadRowButtons">
+                <button className="btn-sm btn-dark col-6" onClick={this.updateMe}><FontAwesomeIcon icon="pencil-alt" /></button>
+                <button className="btn-sm btn-danger col-6" onClick={this.deleteMe}><FontAwesomeIcon icon="trash-alt" /></button>
+              </div>)
+            : (positionButtons)
+          }
+        </div>
 
       </div>
     );
