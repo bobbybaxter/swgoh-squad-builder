@@ -1,3 +1,23 @@
 .SquadList {
   display: block;
 }
+
+.squadListTitleCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.squadListTitleSpace {
+  width: 20%;
+}
+
+.squadListTitle {
+  width: 100%;
+}
+
+.squadListTitleButton {
+  width: 50%;
+  margin-bottom: 16px;
+}

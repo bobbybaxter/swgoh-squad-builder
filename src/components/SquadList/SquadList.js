@@ -11,6 +11,8 @@ import characterData from '../../helpers/data/characters.json';
 import squadData from '../../helpers/data/squadData';
 import squadListData from '../../helpers/data/squadListData';
 
+import './SquadList.scss';
+
 const defaultSquad = {
   character1: '',
   character1Id: '',
@@ -294,11 +296,16 @@ class SquadList extends React.Component {
       isEditMode,
     } = this.state;
     squads.sort((a, b) => a.positionNum - b.positionNum);
-    const buildSquadRows = squads.map((x) => {
+    const buildSquadRows = squads.map((x, index) => {
+      let position = '';
+      if (index === 0) {
+        position = 'first';
+      } else if (index === squads.length - 1) {
+        position = 'last';
+      }
       const squad = [];
       const builtSquad = this.buildSquad(x);
       squad.push(builtSquad);
-      // console.error(x.character1, x.positionNum);
       return <SquadRow
       deleteSquad={this.deleteSquad}
       isEditMode={isEditMode}
@@ -306,10 +313,10 @@ class SquadList extends React.Component {
       moveRowDown={this.moveRowDown}
       moveRowUp={this.moveRowUp}
       openUpdateSquadRowModal={this.openUpdateSquadRowModal}
+      position={position}
       squad={squad[0]}
       />;
     });
-    // console.error('---');
 
     return (
       <div className="SquadList col-12 justify-content-center">
@@ -331,11 +338,12 @@ class SquadList extends React.Component {
           toggle={this.toggle}
           updateSquadRow={this.updateSquadRow}
         />
-        <div className="d-flex flex-row justify-content-center align-items-center">
-          <div className="col-3"></div>
-          <h1 className="my-4 col-6">{squadList.name}</h1>
-          <div className="d-flex flex-column offset-1 col-2">
-            <button onClick={this.reorderSquads} className="btn btn-primary">
+        <div className="squadListTitleCard my-2">
+          <div className="squadListTitleSpace"></div>
+          <h1 className="squadListTitle">{squadList.name}</h1>
+          <p className="squadListTitle">{squadList.description}</p>
+          <div className="squadListTitleButton">
+            <button onClick={this.reorderSquads} className="btn-sm btn-primary">
               {this.state.isEditMode ? 'Reorder' : 'Edit'}
             </button>
           </div>
