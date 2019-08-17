@@ -46,6 +46,9 @@ class MyNavbar extends React.Component {
             <NavLink tag={RRNavLink} to="/squad-manager">Squad Manager</NavLink>
           </NavItem>
           <NavItem>
+            <NavLink href="https://bobbybaxter.github.io/swgoh-counters">Squad Counters</NavLink>
+          </NavItem>
+          <NavItem>
             <NavLink href="#" onClick={this.logMeOut}>Logout</NavLink>
           </NavItem>
         </Nav>
