@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "d11ce313d39c5e6050636da79e1a5779",
+    "revision": "d3f0220aaaa1d53b3dada2af8c1d2b0a",
     "url": "/swgoh-squad-builder/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/swgoh-squad-builder/static/css/2.266e55a5.chunk.css"
   },
   {
-    "revision": "f4ad3ba11d5573161504",
+    "revision": "60bcb9569807334b922e",
     "url": "/swgoh-squad-builder/static/css/main.f1cc8980.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/swgoh-squad-builder/static/js/2.e1515c1c.chunk.js"
   },
   {
-    "revision": "f4ad3ba11d5573161504",
-    "url": "/swgoh-squad-builder/static/js/main.bcdb0ea8.chunk.js"
+    "revision": "60bcb9569807334b922e",
+    "url": "/swgoh-squad-builder/static/js/main.85f37c7d.chunk.js"
   },
   {
     "revision": "6e92f12df5e11d76be17",

@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/swgoh-squad-builder/precache-manifest.b2f491ec0912226377fe52181487325c.js"
+  "/swgoh-squad-builder/precache-manifest.4323c82531ee8b4efcb81d1592cbe9fa.js"
 );
 
 self.addEventListener('message', (event) => {
