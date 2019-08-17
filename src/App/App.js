@@ -32,7 +32,7 @@ const PublicRoute = ({ component: Component, authed, ...rest }) => {
     authed === false
       ? (<Component {...props} />)
       : (
-        (<Redirect to={{ pathname: '/home', state: { from: props.location } }} />))
+        (<Redirect to={{ pathname: '/swgoh-squad-builder', state: { from: props.location } }} />))
   );
   return <Route {...rest} render={props => routeChecker(props)} />;
 };
@@ -68,7 +68,7 @@ class App extends React.Component {
                 <Switch>
                   <PublicRoute path="/auth" component={Auth} authed={authed} />
 
-                  <PrivateRoute path="/home" component={Home} authed={authed} />
+                  <PrivateRoute path="/swgoh-squad-builder" component={Home} authed={authed} />
                   <PrivateRoute path="/squad-manager" component={SquadManager} authed={authed} />
                   <PrivateRoute path="/squad-list/:id" component={SquadList} authed={authed} />
 
